@@ -63,16 +63,18 @@ class _SubscribedUsersScreenState extends State<SubscribedUsersScreen> {
                                   width: 80,
                                   decoration: BoxDecoration(
                                       color: Colors.grey.shade100,
-                                      image: DecorationImage(
-                                        fit: BoxFit.fitHeight,
-                                        image: CachedNetworkImageProvider(
-                                          "",
-                                        ),
-                                        onError: (exception, stackTrace) =>
-                                            Image.asset(
-                                                "assets/logo/tytle icon.png"),
-                                      ),
                                       borderRadius: BorderRadius.circular(7)),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(7),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          val.users[index].userImage.toString(),
+                                      fit: BoxFit.fitHeight,
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
+                                              "assets/logo/plashholder.png"),
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(width: 8),
                                 SizedBox(

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:tiffexx_seller/Helper/String.dart';
 import 'package:tiffexx_seller/Model/SubsPlanModel.dart';
@@ -20,6 +21,38 @@ class SubsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  setStatus(String status) {
+    selectedStatus = status;
+    notifyListeners();
+  }
+
+  final List<Map<String, String>> status = [
+    {
+      'key': '1',
+      'val': 'Pending',
+    },
+    {
+      'key': '2',
+      'val': 'In Progress',
+    },
+    {
+      'key': '3',
+      'val': 'Picked Up',
+    },
+    {
+      'key': '4',
+      'val': ' On The way',
+    },
+    {
+      'key': '5',
+      'val': 'Delivered',
+    },
+    {
+      'key': '6',
+      'val': 'Leave',
+    },
+  ];
+  String selectedStatus = '';
   List<PlanData> plans = [];
   List<SubsUsersData> users = [];
   Future<void> getPlans() async {
@@ -66,6 +99,36 @@ class SubsProvider with ChangeNotifier {
       }
     } catch (e, st) {
       print(st);
+      throw Exception(e);
+    }
+  }
+
+  Future<bool> updateOrderStatus({
+    required String subsId,
+    required String date,
+  }) async {
+    try {
+      setLoading(true);
+      var request = http.MultipartRequest('POST', UpdatePlanStatus);
+      request.fields.addAll({
+        'subscription_id': subsId,
+        'date': date,
+        'status': selectedStatus,
+      });
+      print(request.fields);
+      http.StreamedResponse response = await request.send();
+      var json = jsonDecode(await response.stream.bytesToString());
+      if (response.statusCode == 200 && json['status']) {
+        setLoading(false);
+        Fluttertoast.showToast(msg: json['message']);
+        return true;
+      } else {
+        Fluttertoast.showToast(msg: json['message']);
+        setLoading(false);
+        return false;
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
       throw Exception(e);
     }
   }

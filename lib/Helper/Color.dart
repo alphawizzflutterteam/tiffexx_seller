@@ -17,7 +17,7 @@ const MaterialColor primary_app = const MaterialColor(
 );
 const Color primary = Color(0xff23A69E);
 const Color secondary = Color(0xff0F312C);
-const Color fontColor = Color(0xff4543C1);
+const Color fontColor = Color(0xff000000);
 const Color grad1Color = Color(0xffFFBD69);
 const Color grad2Color = Color(0xffd4001d);
 //const Color lightWhite2 = Color(0xffEEF2F3);

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -10,6 +8,7 @@ import 'package:tiffexx_seller/Helper/Session.dart';
 import 'package:tiffexx_seller/Model/SubsPlanModel.dart';
 import 'package:tiffexx_seller/Model/SubsUsersModel.dart';
 import 'package:tiffexx_seller/Provider/SubscriptionProvider.dart';
+import 'package:provider/provider.dart';
 
 class UserPlanDetailScreen extends StatelessWidget {
   const UserPlanDetailScreen({Key? key, required this.data}) : super(key: key);
@@ -70,12 +69,13 @@ class UserPlanDetailScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(7),
                               color: Colors.grey.shade300,
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: CachedNetworkImageProvider(
-                                  data.userImage.toString(),
-                                ),
-                                onError: (exception, stackTrace) =>
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(7),
+                              child: CachedNetworkImage(
+                                imageUrl: data.userImage.toString(),
+                                fit: BoxFit.fitHeight,
+                                errorWidget: (context, url, error) =>
                                     Image.asset("assets/logo/plashholder.png"),
                               ),
                             ),
@@ -269,6 +269,142 @@ class UserPlanDetailScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(7)),
                 elevation: 6,
                 child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                height: 12,
+                                width: 12,
+                                color: Colors.orange,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'Pending',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 12,
+                                width: 12,
+                                color: Colors.grey,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'In Progress',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 12,
+                                width: 12,
+                                color: Colors.blue,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'Picked Up',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 12,
+                                width: 12,
+                                color: Colors.purpleAccent,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'On The Way',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                height: 12,
+                                width: 12,
+                                color: Colors.green,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'Delivered',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 12,
+                                width: 12,
+                                color: Colors.black,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'Cancel By User',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 12,
+                                width: 12,
+                                color: Colors.red,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'Leave',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 12,
+                                width: 12,
+                                color: Colors.pinkAccent,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'Paused',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Divider(color: Colors.transparent),
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7)),
+                elevation: 6,
+                child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: TableCalendar(
                     availableCalendarFormats: const {
@@ -281,81 +417,16 @@ class UserPlanDetailScreen extends StatelessWidget {
                     focusedDay: DateTime.parse(data.expiryDate.toString()),
                     lastDay: DateTime.parse(data.expiryDate.toString()),
                     onDaySelected: (selectedDay, focusedDay) {
-                      // if (getStatus(selectedDay) != '5' &&
-                      //     getStatus(selectedDay) != '6' &&
-                      //     getStatus(selectedDay) != '7' &&
-                      //     getStatus(selectedDay) != '8' &&
-                      //     selectedDay.isAfter(DateTime.now())) {
-                      //   // showDialog(
-                      //   //     context: context,
-                      //   //     builder: (context) => Consumer<TiffinProvider>(
-                      //   //             builder: (context, val, _) {
-                      //   //           return AlertDialog(
-                      //   //             title: val.isLoading
-                      //   //                 ? null
-                      //   //                 : Text("Cancel Order"),
-                      //   //             content: val.isLoading
-                      //   //                 ? Column(
-                      //   //                     mainAxisSize: MainAxisSize.min,
-                      //   //                     children: [
-                      //   //                       Center(
-                      //   //                         child:
-                      //   //                             CircularProgressIndicator(),
-                      //   //                       ),
-                      //   //                       Text(
-                      //   //                         "Please Wait.....",
-                      //   //                         style: TextStyle(
-                      //   //                             fontWeight: FontWeight.bold,
-                      //   //                             fontSize: 16),
-                      //   //                       ),
-                      //   //                     ],
-                      //   //                   )
-                      //   //                 : Text(
-                      //   //                     'Do you want to cancel today\'s tiffin?'),
-                      //   //             actions: val.isLoading
-                      //   //                 ? []
-                      //   //                 : [
-                      //   //                     TextButton(
-                      //   //                         onPressed: () =>
-                      //   //                             Navigator.pop(context),
-                      //   //                         child: Text(
-                      //   //                           "Discard",
-                      //   //                           style: TextStyle(
-                      //   //                               color: Colors.black),
-                      //   //                         )),
-                      //   //                     ElevatedButton(
-                      //   //                         style: ElevatedButton.styleFrom(
-                      //   //                           shape: RoundedRectangleBorder(
-                      //   //                               borderRadius:
-                      //   //                                   BorderRadius.circular(
-                      //   //                                       7)),
-                      //   //                           backgroundColor:
-                      //   //                               colors.primary,
-                      //   //                         ),
-                      //   //                         onPressed: () {
-                      //   //                           val
-                      //   //                               .updateDayStatus(
-                      //   //                                   date: selectedDay
-                      //   //                                       .toString(),
-                      //   //                                   subId: getSubId(
-                      //   //                                       selectedDay))
-                      //   //                               .then((value) {
-                      //   //                             if (value) {
-                      //   //                               Navigator.pop(context);
-                      //   //                               Navigator.pop(context);
-                      //   //                               val.getMyTiffinPlans();
-                      //   //                             }
-                      //   //                           });
-                      //   //                         },
-                      //   //                         child: Text(
-                      //   //                           "Cancel",
-                      //   //                           style: TextStyle(
-                      //   //                               color: Colors.white),
-                      //   //                         ))
-                      //   //                   ],
-                      //   //           );
-                      //   //         }));
-                      // }
+                      if (getStatus(selectedDay) != '5' &&
+                          getStatus(selectedDay) != '7' &&
+                          getStatus(selectedDay) != '8') {
+                        showDialog(
+                          context: context,
+                          builder: (context) => UpdateStatusDialog(
+                              date: selectedDay.toString(),
+                              SubId: data.id.toString()),
+                        );
+                      }
                     },
                     calendarBuilders: CalendarBuilders(
                       dowBuilder: (context, day) {
@@ -552,6 +623,102 @@ class UserPlanDetailScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class UpdateStatusDialog extends StatelessWidget {
+  const UpdateStatusDialog({
+    Key? key,
+    required this.SubId,
+    required this.date,
+  }) : super(key: key);
+  final String SubId;
+  final String date;
+  @override
+  Widget build(BuildContext context) {
+    Provider.of<SubsProvider>(context, listen: false).selectedStatus = '';
+    return Consumer<SubsProvider>(builder: (context, val, _) {
+      return Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: val.isLoading
+              ? Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    Text(
+                      'Please Wait....',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                  ],
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Update Status',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    Divider(),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: val.status.length,
+                      itemBuilder: (context, index) => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            val.status[index]['val'].toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14),
+                          ),
+                          Checkbox(
+                              value: val.selectedStatus ==
+                                  val.status[index]['key'].toString(),
+                              onChanged: (_) {
+                                val.setStatus(
+                                    val.status[index]['key'].toString());
+                              }),
+                        ],
+                      ),
+                    ),
+                    Divider(),
+                    ElevatedButton(
+                      onPressed: () {
+                        val
+                            .updateOrderStatus(
+                          date: date,
+                          subsId: SubId,
+                        )
+                            .then((value) {
+                          if (value) {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            val.getSubsUsers();
+                          }
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: primary,
+                          fixedSize: Size(double.maxFinite, 45),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7))),
+                      child: Text(
+                        'Update Status',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white),
+                      ),
+                    )
+                  ],
+                ),
+        ),
+      );
+    });
   }
 }
 
