@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:tiffexx_seller/Helper/ApiBaseHelper.dart';
 import 'package:tiffexx_seller/Screen/OrderList.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -23,6 +25,7 @@ class PushNotificationService {
     iOSPermission();
     messaging.getToken().then(
       (token) async {
+        log(" FCM: ${token}");
         if (CUR_USERID != null && CUR_USERID != "") _registerToken(token);
       },
     );

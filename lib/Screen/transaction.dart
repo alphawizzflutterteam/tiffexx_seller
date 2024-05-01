@@ -56,8 +56,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                       style: TextStyle(fontSize: 18),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: isAll ? primary : white,
-                      onPrimary: isAll ? white : primary,
+                      foregroundColor: isAll ? white : primary, backgroundColor: isAll ? primary : white,
                       maximumSize: Size(200, 50),
                       minimumSize: Size(150, 40),
                       shape: RoundedRectangleBorder(
@@ -76,8 +75,7 @@ class _TransactionDetailsState extends State<TransactionDetails> {
                       style: TextStyle(fontSize: 18),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: isToday ? primary : white,
-                      onPrimary: isToday ? white : primary,
+                      foregroundColor: isToday ? white : primary, backgroundColor: isToday ? primary : white,
                       maximumSize: Size(200, 50),
                       minimumSize: Size(150, 40),
                       shape: RoundedRectangleBorder(

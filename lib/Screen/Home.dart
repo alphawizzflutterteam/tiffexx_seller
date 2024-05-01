@@ -374,9 +374,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   TextButton(
                     style: curChart == 0
                         ? TextButton.styleFrom(
-                            primary: Colors.white,
-                            backgroundColor: primary,
-                            onSurface: Colors.grey,
+                            foregroundColor: Colors.white, backgroundColor: primary, disabledForegroundColor: Colors.grey.withOpacity(0.38),
                           )
                         : null,
                     onPressed: () {
@@ -393,9 +391,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   TextButton(
                     style: curChart == 1
                         ? TextButton.styleFrom(
-                            primary: Colors.white,
-                            backgroundColor: primary,
-                            onSurface: Colors.grey,
+                            foregroundColor: Colors.white, backgroundColor: primary, disabledForegroundColor: Colors.grey.withOpacity(0.38),
                           )
                         : null,
                     onPressed: () {
@@ -412,9 +408,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   TextButton(
                     style: curChart == 2
                         ? TextButton.styleFrom(
-                            primary: Colors.white,
-                            backgroundColor: primary,
-                            onSurface: Colors.grey,
+                            foregroundColor: Colors.white, backgroundColor: primary, disabledForegroundColor: Colors.grey.withOpacity(0.38),
                           )
                         : null,
                     onPressed: () {

@@ -13,9 +13,28 @@ import 'Provider/SubscriptionProvider.dart';
 import 'Screen/Splash_/SplashScreen.dart';
 import 'dart:io' show Platform;
 
+import 'firebase_options.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  await FirebaseMessaging.instance.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
   FirebaseMessaging.onBackgroundMessage(myForgroundMessageHandler);
   String? msg = await FirebaseMessaging.instance.getAPNSToken();
   print('Token APNS : ${msg}');

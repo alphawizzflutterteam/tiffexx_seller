@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:tiffexx_seller/Helper/ApiBaseHelper.dart';
 import 'package:tiffexx_seller/Helper/AppBtn.dart';
 import 'package:tiffexx_seller/Helper/Color.dart';
@@ -248,7 +249,9 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     };
 
     apiBaseHelper.postAPICall(getUserLoginApi, data).then(
+
       (getdata) async {
+        log(getdata.toString());
         bool error = getdata["error"];
         String? msg = getdata["message"];
         print(getUserLoginApi);
@@ -316,7 +319,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
         } else {
           await buttonController!.reverse();
           setSnackbar(msg!);
-          setState(() {});
+
         }
       },
       onError: (error) {

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "969883617249",
+    "project_id": "tiffexx-9da1c",
+    "storage_bucket": "tiffexx-9da1c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969883617249:android:941bfdc75125dda9fc74a0",
+        "android_client_info": {
+          "package_name": "com.tiffexx.seller"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYxP3Zo9I_rVSwo4rCoCBpB5bD_RYAWMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969883617249:android:789e7b7d3aa745edfc74a0",
+        "android_client_info": {
+          "package_name": "com.tiffexx.user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYxP3Zo9I_rVSwo4rCoCBpB5bD_RYAWMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

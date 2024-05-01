@@ -1319,10 +1319,7 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               style: ElevatedButton.styleFrom(
-                side: BorderSide(color: primary),
-                primary: primary,
-                onPrimary: Colors.white,
-                onSurface: fontColor,
+                foregroundColor: Colors.white, backgroundColor: primary, side: BorderSide(color: primary), disabledForegroundColor: fontColor.withOpacity(0.38), disabledBackgroundColor: fontColor.withOpacity(0.12),
               ),
             )),
         Container(
@@ -1333,9 +1330,7 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
               onPressed: () => _endDate(context),
               child: Text(end == null ? 'End Date' : end!),
               style: ElevatedButton.styleFrom(
-                primary: primary,
-                onPrimary: Colors.white,
-                onSurface: Colors.grey,
+                foregroundColor: Colors.white, backgroundColor: primary, disabledForegroundColor: Colors.grey.withOpacity(0.38), disabledBackgroundColor: Colors.grey.withOpacity(0.12),
               ),
             )),
         Expanded(
@@ -1358,9 +1353,7 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
                 child: Icon(Icons.close),
               ),
               style: ElevatedButton.styleFrom(
-                primary: primary,
-                onPrimary: Colors.white,
-                onSurface: Colors.grey,
+                foregroundColor: Colors.white, backgroundColor: primary, disabledForegroundColor: Colors.grey.withOpacity(0.38), disabledBackgroundColor: Colors.grey.withOpacity(0.12),
                 padding: EdgeInsets.all(0),
               ),
             ),
