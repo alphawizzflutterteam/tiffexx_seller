@@ -42,8 +42,8 @@ class _SplashScreenState extends State<SplashScreen> {
       key: _scaffoldKey,
       body: Center(
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height*.5,
+          width: MediaQuery.of(context).size.width /1.3,
+          height: MediaQuery.of(context).size.height*.3,
           // decoration: back(),
           child: Image.asset(
             "assets/logo/splash logo.png",

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 import 'package:tiffexx_seller/Helper/ApiBaseHelper.dart';
 import 'package:tiffexx_seller/Helper/AppBtn.dart';
 import 'package:tiffexx_seller/Helper/Color.dart';
@@ -7,6 +8,7 @@ import 'package:tiffexx_seller/Helper/ContainerDesing.dart';
 import 'package:tiffexx_seller/Helper/Session.dart';
 import 'package:tiffexx_seller/Helper/String.dart';
 import 'package:tiffexx_seller/Helper/app_assets.dart';
+import 'package:tiffexx_seller/Screen/Authentication/sign_up_screen.dart';
 import 'package:tiffexx_seller/Screen/TermFeed/Privacy_Policy.dart';
 import 'package:tiffexx_seller/Screen/TermFeed/Terms_Conditions.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -416,29 +418,36 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
-    return ScaffoldMessenger(
-      key: scaffoldMessengerKey,
-      child: Scaffold(
-        key: _scaffoldKey,
-        body: _isNetworkAvail
-            ? Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    decoration: back(),
-                  ),
-                  Image.asset(
-                    'assets/images/doodle.png',
-                    fit: BoxFit.fill,
-                    width: double.infinity,
-                    height: double.infinity,
-                  ),
-                  getLoginContainer(),
-                  getLogo(),
-                ],
-              )
-            : noInternet(context),
+    return WillPopScope(
+      onWillPop: () async {
+        // Perform any operations or checks here if needed
+        // Return true to allow back navigation, return false to prevent it
+        return exit(0); // Change to false if you don't want to allow back navigation
+      },
+      child: ScaffoldMessenger(
+        key: scaffoldMessengerKey,
+        child: Scaffold(
+          key: _scaffoldKey,
+          body: _isNetworkAvail
+              ? Stack(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: back(),
+                    ),
+                    Image.asset(
+                      'assets/images/doodle.png',
+                      fit: BoxFit.fill,
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
+                    getLoginContainer(),
+                    getLogo(),
+                  ],
+                )
+              : noInternet(context),
+        ),
       ),
     );
   }
@@ -506,6 +515,20 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                         ),
                       ),
                       loginBtn(),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Don't hava an account? "),
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
+
+                            },
+                              child: Text("Sign Up",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
+                        ],
+                      ),
+                      SizedBox(height: 10,),
                       termAndPolicyTxt(),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.10,
