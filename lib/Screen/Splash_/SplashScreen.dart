@@ -6,6 +6,7 @@ import 'package:tiffexx_seller/Screen/Authentication/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../Helper/Color.dart';
 import '../Home.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -39,6 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
     width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: primary,
+
       key: _scaffoldKey,
       body: Center(
         child: Container(

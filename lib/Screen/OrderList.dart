@@ -32,7 +32,7 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
   List<Order_Model> orderList = [];
   Icon iconSearch = Icon(
     Icons.search,
-    color: primary,
+    color: primary1,
     size: 25,
   );
 
@@ -80,7 +80,7 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
     appBarTitle = Text(
       //  getTranslated(context, "ORDER")!,
       "Orders",
-      style: TextStyle(color: primary),
+      style: TextStyle(color: primary1),
     );
     buttonController = new AnimationController(
         duration: new Duration(milliseconds: 2000), vsync: this);
@@ -245,12 +245,12 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
           () {
         iconSearch = Icon(
           Icons.search,
-          color: primary,
+          color: primary1,
           size: 25,
         );
         appBarTitle = Text(
           getTranslated(context, "ORDER")!,
-          style: TextStyle(color: primary),
+          style: TextStyle(color: primary1),
         );
         isSearching = false;
         _controller.clear();
@@ -304,8 +304,9 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
       title: appBarTitle,
       elevation: 5,
       titleSpacing: 0,
-      iconTheme: IconThemeData(color: primary),
-      backgroundColor: white,
+      iconTheme: IconThemeData(color: primary1),
+      backgroundColor: primary,
+      foregroundColor: primary1,
       leading: Builder(
         builder: (BuildContext context) {
           return Container(
@@ -316,7 +317,7 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
               child: Center(
                 child: Icon(
                   Icons.keyboard_arrow_left,
-                  color: primary,
+                  color: primary1,
                   size: 30,
                 ),
               ),
@@ -336,19 +337,19 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
                 if (iconSearch.icon == Icons.search) {
                   iconSearch = Icon(
                     Icons.close,
-                    color: primary,
+                    color: primary1,
                     size: 25,
                   );
                   appBarTitle = TextField(
                     controller: _controller,
                     autofocus: true,
                     style: TextStyle(
-                      color: primary,
+                      color: primary1,
                     ),
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search, color: primary),
+                      prefixIcon: Icon(Icons.search, color: primary1),
                       hintText: getTranslated(context, "Search"),
-                      hintStyle: TextStyle(color: primary),
+                      hintStyle: TextStyle(color: primary1),
                     ),
                     //  onChanged: searchOperation,
                   );
@@ -374,7 +375,7 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
               padding: const EdgeInsets.all(4.0),
               child: Icon(
                 Icons.filter_alt_outlined,
-                color: primary,
+                color: primary1,
                 size: 25,
               ),
             ),

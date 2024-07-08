@@ -210,7 +210,7 @@ noIntDec(BuildContext context) {
 getAppBar(String title, BuildContext context) {
   return AppBar(
     titleSpacing: 0,
-    backgroundColor: white,
+    backgroundColor: primary,
     leading: Builder(
       builder: (BuildContext context) {
         return Container(
@@ -222,7 +222,7 @@ getAppBar(String title, BuildContext context) {
             child: Center(
               child: Icon(
                 Icons.keyboard_arrow_left,
-                color: primary,
+                color: primary1,
                 size: 30,
               ),
             ),
@@ -233,7 +233,7 @@ getAppBar(String title, BuildContext context) {
     title: Text(
       title,
       style: TextStyle(
-        color: primary,
+        color: primary1,
       ),
     ),
   );

@@ -962,20 +962,20 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return AppBar(
       title: Text(
         appName,
-        style: TextStyle(color: primary, fontSize: 18),
+        style: TextStyle(color: primary1, fontSize: 18),
       ),
-      backgroundColor: white,
-      iconTheme: IconThemeData(color: primary),
+      backgroundColor: primary,
+      iconTheme: IconThemeData(color: primary1),
       actions: [
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            onOf ? Text("Online") : Text("Offline"),
+            onOf ? Text("Online",style: TextStyle(color: primary1),) : Text("Offline",style: TextStyle(color: primary1),),
           ],
         ),
         CupertinoSwitch(
             value: onOf,
-            activeColor: primary,
+            activeColor: primary1,
             onChanged: (value) {
               setState(() {
                 onOf = value;
@@ -1008,6 +1008,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   getDrawer(BuildContext context) {
     return Drawer(
+
       child: SafeArea(
         child: Container(
           color: white,
