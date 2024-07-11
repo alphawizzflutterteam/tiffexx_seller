@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiffexx_seller/Screen/Authentication/Login.dart';
+import 'package:tiffexx_seller/Screen/Authentication/signup_verify_otp.dart';
 
 import '../../Helper/AppBtn.dart';
 import '../../Helper/Color.dart';
@@ -208,15 +209,15 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (value){
-                            if (value!.isEmpty) {
-                              return  'Account No. is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
-                            }
-                            else if (value.length < 5) {
-                              return 'Enter valid account no.';
-                            }
-                            return null;
-                          },
+                          // validator: (value){
+                          //   if (value!.isEmpty) {
+                          //     return  'Account No. is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
+                          //   }
+                          //   else if (value.length < 5) {
+                          //     return 'Enter valid account no.';
+                          //   }
+                          //   return null;
+                          // },
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
@@ -273,10 +274,7 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           validator: (value){
-                            if (value!.isEmpty) {
-                              return  'Confirm Account No. is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
-                            }
-                            else if (confirmAccountNumberController.text != accountNumberController.text) {
+                       if (confirmAccountNumberController.text != accountNumberController.text) {
                               return 'Account no. not match';
                             }
                             return null;
@@ -337,7 +335,7 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (val) => validateField(val!, context),
+                          // validator: (val) => validateField(val!, context),
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
@@ -375,70 +373,70 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
                         ),
                       ),
 
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        padding: EdgeInsets.only(
-                          top: 30.0,
-                        ),
-                        child: TextFormField(
-                          // maxLength: 10,
-                          // onFieldSubmitted: (v) {
-                          //   FocusScope.of(context).requestFocus(passFocus);
-                          // },
-                          keyboardType: TextInputType.number,
-                          controller: bankCodeController,
-                          style: TextStyle(
-                            color: fontColor,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          // focusNode: monoFocus,
-                          textInputAction: TextInputAction.next,
-                          // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (value){
-                            if (value!.isEmpty) {
-                              return  'Bank Code is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
-                            }
-                            else if (value.length <5) {
-                              return 'Enter valid aadhar no.';
-                            }
-                            return null;
-                          },
-                          // onSaved: (String? value) {
-                          //   mobile = value;
-                          // },
-                          decoration: InputDecoration(
-                            counterText: "",
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: primary),
-                              borderRadius: BorderRadius.circular(7.0),
-                            ),
-                            prefixIcon: Icon(
-                              Icons.credit_card,
-                              color: lightBlack2,
-                              size: 20,
-                            ),
-                            hintText: 'Bank Code'/*getTranslated(context, "Mobile Number")!*/,
-                            hintStyle: Theme.of(this.context).textTheme.subtitle2!.copyWith(
-                              color: lightBlack2,
-                              fontWeight: FontWeight.normal,
-                            ),
-                            filled: true,
-                            fillColor: white,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 5,
-                            ),
-                            prefixIconConstraints: BoxConstraints(
-                              minWidth: 40,
-                              maxHeight: 20,
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: lightBlack2),
-                              borderRadius: BorderRadius.circular(7.0),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width * 0.85,
+                      //   padding: EdgeInsets.only(
+                      //     top: 30.0,
+                      //   ),
+                      //   child: TextFormField(
+                      //     // maxLength: 10,
+                      //     // onFieldSubmitted: (v) {
+                      //     //   FocusScope.of(context).requestFocus(passFocus);
+                      //     // },
+                      //     keyboardType: TextInputType.number,
+                      //     controller: bankCodeController,
+                      //     style: TextStyle(
+                      //       color: fontColor,
+                      //       fontWeight: FontWeight.normal,
+                      //     ),
+                      //     // focusNode: monoFocus,
+                      //     textInputAction: TextInputAction.next,
+                      //     // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      //     validator: (value){
+                      //       if (value!.isEmpty) {
+                      //         return  'Bank Code is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
+                      //       }
+                      //       else if (value.length <5) {
+                      //         return 'Enter valid aadhar no.';
+                      //       }
+                      //       return null;
+                      //     },
+                      //     // onSaved: (String? value) {
+                      //     //   mobile = value;
+                      //     // },
+                      //     decoration: InputDecoration(
+                      //       counterText: "",
+                      //       focusedBorder: UnderlineInputBorder(
+                      //         borderSide: BorderSide(color: primary),
+                      //         borderRadius: BorderRadius.circular(7.0),
+                      //       ),
+                      //       prefixIcon: Icon(
+                      //         Icons.credit_card,
+                      //         color: lightBlack2,
+                      //         size: 20,
+                      //       ),
+                      //       hintText: 'Bank Code'/*getTranslated(context, "Mobile Number")!*/,
+                      //       hintStyle: Theme.of(this.context).textTheme.subtitle2!.copyWith(
+                      //         color: lightBlack2,
+                      //         fontWeight: FontWeight.normal,
+                      //       ),
+                      //       filled: true,
+                      //       fillColor: white,
+                      //       contentPadding: EdgeInsets.symmetric(
+                      //         horizontal: 10,
+                      //         vertical: 5,
+                      //       ),
+                      //       prefixIconConstraints: BoxConstraints(
+                      //         minWidth: 40,
+                      //         maxHeight: 20,
+                      //       ),
+                      //       enabledBorder: UnderlineInputBorder(
+                      //         borderSide: BorderSide(color: lightBlack2),
+                      //         borderRadius: BorderRadius.circular(7.0),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
 
                       Container(
                         width: MediaQuery.of(context).size.width * 0.85,
@@ -459,15 +457,15 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator:  (value){
-                            if (value!.isEmpty) {
-                              return  'Ifsc Code is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
-                            }
-                            else if (value.length <5) {
-                              return 'Enter valid ifsc code';
-                            }
-                            return null;
-                          },
+                          // validator:  (value){
+                          //   if (value!.isEmpty) {
+                          //     return  'Ifsc Code is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
+                          //   }
+                          //   else if (value.length <5) {
+                          //     return 'Enter valid ifsc code';
+                          //   }
+                          //   return null;
+                          // },
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
@@ -524,7 +522,7 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (val) => validateField(val!, context),
+                          // validator: (val) => validateField(val!, context),
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
@@ -582,7 +580,7 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (val) => validateField(val!, context),
+                          // validator: (val) => validateField(val!, context),
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
@@ -820,16 +818,19 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
                             if(_formkey.currentState!.validate())
                               {
                                 print('kkkkkkkkkk');
-                                if(_selectedAccountType==null)
-                                  {
-                                    print('kkkkkkkkkk2222');
-                                    Fluttertoast.showToast(msg: 'Please Select Account Type');
-                                  }
-                                else
-                                  {
-                                    print('kkkkkkkkkk33333333');
-                                    signUpSeller();
-                                  }
+                                sendOtp();
+
+                                // signUpSeller();
+                                // if(_selectedAccountType==null)
+                                //   {
+                                //     print('kkkkkkkkkk2222');
+                                //     Fluttertoast.showToast(msg: 'Please Select Account Type');
+                                //   }
+                                // else
+                                //   {
+                                //
+                                //     signUpSeller();
+                                //   }
                               }
                             // Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpBankDetails()));
                             // onBtnSelected!();
@@ -999,6 +1000,111 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
     }
   }
   bool isLoading = false;
+
+  sendOtp()async{
+    isLoading =true;
+    setState(() {
+
+    });
+
+    print("updates add on api worikngg");
+    // var headers = {
+    //   'Cookie': 'ci_session=2a1db53a991ef210a3d9bb520ce95ba387710edf'
+    // };
+    var request = http.MultipartRequest('POST', Uri.parse('${baseUrl}send_otp'));
+    request.fields.addAll({
+      'mobile':widget.mobile
+      // 'name': widget.name,
+      // 'mobile': widget.mobile,
+      // 'email': widget.email,
+      // 'password': widget.password,
+      // 'confirm_password': widget.confirmPassword,
+      // 'address': widget.permanentAddress,
+      // 'current_address': widget.currentAddress,
+      // 'lat':widget.lat,
+      // 'lang':widget.long,
+      // 'lat2':widget.lat2,
+      // 'lang2':widget.long2,
+      // 'vehicle_no':widget.vehicleNumber,
+      // 'bonus':'0',
+      // 'wallet_amount':'0',
+      // 'city':widget.city,
+      // 'driving_license':widget.drivingLicenseImage,
+      // 'store_name': widget.restaurantName,
+      // 'tax_name': widget.gstName,
+      // 'tax_number': widget.gstNumber,
+      // 'fssai_number': widget.fassiNumber,
+      // 'bank_code': widget.aadharNumber,
+      // 'rc_number': widget.rcNumber,
+      // 'pan_number': widget.panNumber,
+      // 'restaurant_description': widget.restaurantDescription,
+      // 'restaurant_address': widget.restaurantAddress,
+      // 'restaurant_type': widget.restaurantType,
+      // 'account_number': accountNumberController.text,
+      // 'confirm_account_no': confirmAccountNumberController.text,
+      // 'account_name': accountNameController.text,
+      // 'banke_code': bankCodeController.text,
+      // 'ifsc_code': ifscCodeController.text,
+      // 'bank_name': bankNameController.text,
+      // 'branch': branchNameController.text,
+      // 'account_type': _selectedAccountType ?? '',
+
+
+    });
+    // request.files.add(await http.MultipartFile.fromPath('profile_pic', widget.profileImage));
+    // request.files.add(await http.MultipartFile.fromPath('driving_license', widget.drivingLicenseImage));
+    // request.files.add(await http.MultipartFile.fromPath('address_proof', widget.aadharFront));
+    // request.files.add(await http.MultipartFile.fromPath('address_proof_back', widget.aadharBack));
+    // request.files.add(await http.MultipartFile.fromPath('rc_image', widget.rcImage));
+    print("Aaddd onn parametyeer ${request.fields}");
+    print("Aaddd onn parametyeer ${request.files}");
+    // if(addonImageList.length != 0){
+    //   print("addon list here now ${addonImageList[0]}");
+    //   for(var i=0;i<addonImageList.length;i++){
+    //     addonImageList == null ? addonImageList.length == 0 :  request.files.add(await http.MultipartFile.fromPath('addon_images[]', addonImageList[i]));
+    //   }
+    // }
+    // print("checking parameters are here ${request.fields} and ${request.files}");
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var finalResult = await response.stream.bytesToString();
+      final jsonResponse = json.decode(finalResult);
+      print('-----------------${finalResult}');
+      var otp;
+      setState(() {
+        var snackBar = SnackBar(
+          content: Text('${jsonResponse['message']}'),
+        );
+        otp = jsonResponse['otp'];
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      });
+      if(jsonResponse['error'] == false)
+      {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    SignUpVerifyOtp1(confirmPassword: widget.confirmPassword,password: widget.password,email: widget.email,  mobile: widget.mobile,
+                      lat: widget.lat,long: widget.long ?? '',  aadharNumber: widget.aadharNumber, lat2: widget.lat2,long2: widget.long2,
+                      mobileNumber: widget.mobile,otp: otp,logoImage: widget.logoImage,restaurantType: widget.restaurantType,restaurantName: widget.restaurantName,restaurantAddress: widget.restaurantAddress,
+                      panNumber: widget.panNumber, gstNumber: widget.gstNumber,gstName: widget.gstName, fassiNumber: widget.fassiNumber,addressProofImage: widget.addressProofImage,owneraddress: widget.owneraddress,
+                      ownerName: widget.ownerName, restaurantDescription: widget.restaurantDescription,selectedAccountType: _selectedAccountType ?? '', ifscCodeController: ifscCodeController.text,
+                      confirmAccountNumberController: confirmAccountNumberController.text,branchNameController: branchNameController.text,bankNameController: bankNameController.text,accountNumberController: accountNumberController.text,
+                      accountNameController: accountNameController.text,bankCodeController: bankCodeController.text,
+                    )));
+      }
+      // Navigator.pop(context);
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+
+    isLoading=false;
+    setState(() {
+
+    });
+  }
   signUpSeller()async{
     isLoading =true;
     setState(() {
@@ -1044,6 +1150,7 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
     request.files.add(await http.MultipartFile.fromPath('address_proof', widget.addressProofImage));
     print("Aaddd onn parametyeer ${request.fields}");
     print("Aaddd onn parametyeer ${request.files}");
+    print("Aaddd onn parametyeer ${request.url}");
     // if(addonImageList.length != 0){
     //   print("addon list here now ${addonImageList[0]}");
     //   for(var i=0;i<addonImageList.length;i++){

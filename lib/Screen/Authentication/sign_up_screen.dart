@@ -194,7 +194,14 @@ class _SignUpScreenState extends State<SignUpScreen>
                           // inputFormatters: [
                           //   FilteringTextInputFormatter.digitsOnly
                           // ],
-                          validator: (val) => validateField(val!, context),
+                          validator: (value) {
+
+                            if (value == null || value.isEmpty) {
+                              return 'Owner name is required';
+                            }
+
+                            return null;
+                          },
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
@@ -575,7 +582,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                               color: lightBlack2,
                               size: 20,
                             ),
-                            hintText: 'Address',
+                            hintText: 'Home Address',
                             /*getTranslated(context, "Mobile Number")!,*/
                             hintStyle: Theme.of(this.context)
                                 .textTheme
@@ -881,7 +888,7 @@ class _SignUpScreenState extends State<SignUpScreen>
   String? addressProofIMage;
   Future<void> galleryImage() async {
     final picker = ImagePicker();
-    XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    XFile? image = await picker.pickImage(source: ImageSource.gallery,imageQuality: 80,maxHeight: 400,maxWidth: 400);
 
     if (image != null) {
       addressProofIMage = image.path;

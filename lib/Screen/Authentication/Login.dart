@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tiffexx_seller/Helper/ApiBaseHelper.dart';
 import 'package:tiffexx_seller/Helper/AppBtn.dart';
 import 'package:tiffexx_seller/Helper/Color.dart';
@@ -257,6 +258,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
         bool error = getdata["error"];
         String? msg = getdata["message"];
         print(getUserLoginApi);
+        Fluttertoast.showToast(msg: msg ?? '');
+        //setSnackbar(msg!);
         if (!error) {
           //setSnackbar(msg!);
           var data = getdata["data"][0];

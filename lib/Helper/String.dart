@@ -40,6 +40,7 @@ final Uri getTransactionApi = Uri.parse(baseUrl + 'get_transactions');
 final Uri updateUserImage = Uri.parse(baseUrl + 'update_image');
 final Uri getSubsPlans = Uri.parse(baseUrl + 'get_subscription_plans');
 final Uri SubsUsers = Uri.parse(baseUrl + 'get_user_subscribed_plans');
+final Uri SubsUsersPaused = Uri.parse(baseUrl + 'get_today_subscribed_plans');
 final Uri UpdatePlanStatus = Uri.parse(baseUrl + 'update_order_status');
 
 //==============================================================================

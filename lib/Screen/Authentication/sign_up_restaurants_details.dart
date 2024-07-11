@@ -205,8 +205,17 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           ),
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
+                          validator: (value){
+                            if (value!.isEmpty) {
+                              return  'Restaurant name is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
+                            }
+                            // else if (confirmPasswordController.text != passwordController.text) {
+                            //   return 'Password not match';
+                            // }
+                            return null;
+                          },
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (val) => validateField(val!, context),
+                          // validator: (val) => validateField(val!, context),
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
@@ -250,7 +259,8 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           top: 30.0,
                         ),
                         child: TextFormField(
-                          // maxLength: 10,
+
+                          maxLength: 14,
                           // onFieldSubmitted: (v) {
                           //   FocusScope.of(context).requestFocus(passFocus);
                           // },
@@ -263,12 +273,11 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (value){
-                            if (value!.isEmpty) {
-                              return  'Fssai No. is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
-                            }
-                            else if (value.length < 13) {
-                              return 'Enter valid fssai no.';
+                          validator: (value) {
+                            if (value != null && value.isNotEmpty) {
+                              if (value.length != 14) {
+                                return 'Enter valid FSSAI no. (14 digits)';
+                              }
                             }
                             return null;
                           },
@@ -315,7 +324,7 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           top: 30.0,
                         ),
                         child: TextFormField(
-                          // maxLength: 10,
+                          maxLength: 12,
                           // onFieldSubmitted: (v) {
                           //   FocusScope.of(context).requestFocus(passFocus);
                           // },
@@ -328,15 +337,25 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           // focusNode: monoFocus,
                           // textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (value){
-                            if (value!.isEmpty) {
-                              return  'Aadhar No. is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
-                            }
-                            else if (value.length <11) {
-                              return 'Enter valid aadhar no.';
+
+                          validator: (value) {
+                            if (value != null && value.isNotEmpty) {
+                              if (value.length != 12) {
+                                return 'Enter valid Aadhar no. (12 digits)';
+                              }
                             }
                             return null;
                           },
+
+                          // validator: (value){
+                          //   if (value!.isEmpty) {
+                          //     return  'Aadhar No. is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
+                          //   }
+                          //   else if (value.length <11) {
+                          //     return 'Enter valid aadhar no.';
+                          //   }
+                          //   return null;
+                          // },
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
@@ -393,7 +412,7 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (val) => validateField(val!, context),
+                          // validator: (val) => validateField(val!, context),
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
@@ -438,11 +457,11 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           top: 30.0,
                         ),
                         child: TextFormField(
-                          // maxLength: 10,
+                          maxLength: 15,
                           // onFieldSubmitted: (v) {
                           //   FocusScope.of(context).requestFocus(passFocus);
                           // },
-                          keyboardType: TextInputType.number,
+                          // keyboardType: TextInputType.number,
                           controller: gstNumberController,
                           style: TextStyle(
                             color: fontColor,
@@ -451,15 +470,23 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (value){
-                            if (value!.isEmpty) {
-                              return  'Gst No. is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
-                            }
-                            else if (value.length <11) {
-                              return 'Enter valid gst no.';
+                          validator: (value) {
+                            if (value != null && value.isNotEmpty) {
+                              if (value.length != 15) {
+                                return 'Enter valid Gst no. (15 digits)';
+                              }
                             }
                             return null;
                           },
+                          // validator: (value){
+                          //   if (value!.isEmpty) {
+                          //     return  'Gst No. is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
+                          //   }
+                          //   else if (value.length <11) {
+                          //     return 'Enter valid gst no.';
+                          //   }
+                          //   return null;
+                          // },
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
@@ -503,7 +530,7 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           top: 30.0,
                         ),
                         child: TextFormField(
-                          // maxLength: 10,
+                          maxLength: 10,
                           // onFieldSubmitted: (v) {
                           //   FocusScope.of(context).requestFocus(passFocus);
                           // },
@@ -516,13 +543,21 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (value){
-                            if (value!.isEmpty) {
-                              return  'Pan No. is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
+                          validator: (value) {
+                            if (value != null && value.isNotEmpty) {
+                              if (value.length != 10) {
+                                return 'Enter valid Pan no. (10 digits)';
+                              }
                             }
-
                             return null;
                           },
+                          // validator: (value){
+                          //   if (value!.isEmpty) {
+                          //     return  'Pan No. is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
+                          //   }
+                          //
+                          //   return null;
+                          // },
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
@@ -580,7 +615,7 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (val) => validateField(val!, context),
+                          // validator: (val) => validateField(val!, context),
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
@@ -664,10 +699,19 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (val) => validateField(val!, context),
+                          // validator: (val) => validateField(val!, context),
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
+                          validator: (value){
+                            if (value!.isEmpty) {
+                              return  'Restaurant address is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
+                            }
+                            // else if (confirmPasswordController.text != passwordController.text) {
+                            //   return 'Password not match';
+                            // }
+                            return null;
+                          },
                           decoration: InputDecoration(
                             counterText: "",
                             focusedBorder: UnderlineInputBorder(
@@ -1060,7 +1104,7 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
   String? logoImage;
   Future<void> galleryImage() async {
     final picker = ImagePicker();
-    XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    XFile? image = await picker.pickImage(source: ImageSource.gallery,imageQuality: 80,maxHeight: 400,maxWidth: 400);
 
     if (image != null) {
       logoImage = image.path;

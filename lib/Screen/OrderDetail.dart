@@ -1203,6 +1203,27 @@ class StateOrder extends State<OrderDetail> with TickerProviderStateMixin {
                   ],
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Total " + " " + ":",
+                        style: Theme.of(context)
+                            .textTheme
+                            .button!
+                            .copyWith(color: lightBlack2)),
+                    Text(
+                        CUR_CURRENCY +
+                            " " +
+                            "${double.parse(widget.model!.taxAmt.toString()).toStringAsFixed(2)}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .button!
+                            .copyWith(color: lightBlack2))
+                  ],
+                ),
+              ),
 
               ///
               Padding(

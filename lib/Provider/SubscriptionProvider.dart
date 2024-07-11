@@ -55,6 +55,7 @@ class SubsProvider with ChangeNotifier {
   String selectedStatus = '';
   List<PlanData> plans = [];
   List<SubsUsersData> users = [];
+  List<SubsUsersData> pausedPlans = [];
   Future<void> getPlans() async {
     try {
       plans.clear();
@@ -87,11 +88,38 @@ class SubsProvider with ChangeNotifier {
       request.fields.addAll({'user_id': CUR_USERID.toString()});
 
       http.StreamedResponse response = await request.send();
+      debugPrint(request.url.toString());
+      debugPrint(request.fields.toString());
       var json = jsonDecode(await response.stream.bytesToString());
       if (response.statusCode == 200) {
         SubsUsersModel data = SubsUsersModel.fromJson(json);
         users.addAll(data.data);
         print(users.length);
+        setLoading(false);
+      } else {
+        setLoading(false);
+        print(response.reasonPhrase);
+      }
+    } catch (e, st) {
+      print(st);
+      throw Exception(e);
+    }
+  }
+  Future<void> getSubsUsersPaused(String value) async {
+    try {
+      pausedPlans.clear();
+      setLoading(true);
+      var request = http.MultipartRequest('POST', SubsUsersPaused);
+      request.fields.addAll({'user_id': CUR_USERID.toString(),'type' : value=='1' ? '' :  'pause'});
+
+      http.StreamedResponse response = await request.send();
+      debugPrint(request.url.toString());
+      debugPrint(request.fields.toString());
+      var json = jsonDecode(await response.stream.bytesToString());
+      if (response.statusCode == 200) {
+        SubsUsersModel data = SubsUsersModel.fromJson(json);
+        pausedPlans.addAll(data.data);
+        print(pausedPlans.length);
         setLoading(false);
       } else {
         setLoading(false);

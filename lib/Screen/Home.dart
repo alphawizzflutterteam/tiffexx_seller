@@ -29,6 +29,7 @@ import 'package:tiffexx_seller/Screen/TermFeed/Privacy_Policy.dart';
 import 'package:tiffexx_seller/Screen/ProductList.dart';
 import 'package:tiffexx_seller/Screen/WalletHistory.dart';
 import 'package:tiffexx_seller/Screen/daily_collection.dart';
+import 'package:tiffexx_seller/Screen/subscribeduser_paused_plan.dart';
 import 'package:tiffexx_seller/Screen/transaction.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
@@ -81,7 +82,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       totalcustCount,
       totaldelBoyCount,
       totalsoldOutCount,
-      totallowStockCount;
+      totallowStockCount,today_pause_delivery,today_delivery;
 
   var totalSales;
   var adminCommission;
@@ -852,6 +853,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             NO_OFF_RATTING = data[NoOfRatings] ?? "";
             NO_OFF_RATTING = data[NoOfRatings] ?? "";
             var id = data[Id];
+            today_pause_delivery=data['today_pause_delivery'];
+            today_delivery=data['today_delivery'];
             var username = data[Username];
             var email = data[Email];
             var mobile = data[Mobile];
@@ -1615,6 +1618,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     child: Column(
                       children: [
                         firstHeader(),
+                        plansWidget(),
                         // secondHeader(),
                         thirdHeader(),
                         fourthHeader(),
@@ -1865,6 +1869,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ],
     );
   }
+  plansWidget() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+
+        // getBalanceButton(),
+        getTodayPlan(),
+        getOrderPaused(),
+      ],
+    );
+  }
 
   getOrderButton() {
     return Expanded(
@@ -1897,6 +1912,51 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 ),
                 Text(
                   totalorderCount ?? "",
+                  style: TextStyle(
+                    color: black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  getOrderPaused() {
+    return Expanded(
+      flex: 3,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SubscribedUserPausedPlan(value: '2'),
+            ),
+          );
+        },
+        child: Card(
+          elevation: 0,
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              children: [
+                Icon(
+                  Icons.wallet_giftcard,
+                  color: primary,
+                ),
+                Text(
+                  "Today's Paused Plan",
+                /*  getTranslated(context, "ORDER")!,*/
+                  style: TextStyle(
+                    color: grey,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  today_pause_delivery ?? "",
                   style: TextStyle(
                     color: black,
                     fontWeight: FontWeight.bold,
@@ -1992,6 +2052,53 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     ? SizedBox()
                     : Text(
                         finalProductCount.toString(),
+                        style: TextStyle(
+                          color: black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  getTodayPlan() {
+    return Expanded(
+      flex: 3,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SubscribedUserPausedPlan(value: '1',
+
+              ),
+            ),
+          );
+        },
+        child: Card(
+          elevation: 0,
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              children: [
+                Icon(
+                  Icons.wallet_giftcard,
+                  color: primary,
+                ),
+                Text(
+                  "Today's Plans",
+                  // getTranslated(context, "PRODUCT_LBL")!,
+                  style: TextStyle(
+                    color: grey,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              Text(
+                today_delivery.toString(),
                         style: TextStyle(
                           color: black,
                           fontWeight: FontWeight.bold,
