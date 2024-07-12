@@ -1712,7 +1712,7 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
             //    height: 40,
             padding: EdgeInsets.only(),
             child: TextFormField(
-              readOnly: true,
+              // readOnly: true,
               onTap: () async {},
               onFieldSubmitted: (v) {
                 FocusScope.of(context).requestFocus(totalAllowFocus);

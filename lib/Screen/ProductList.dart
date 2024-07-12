@@ -519,12 +519,12 @@ class StateProduct extends State<ProductList> with TickerProviderStateMixin {
   getAppbar() {
     return AppBar(
       titleSpacing: 0,
-      backgroundColor: white,
+      backgroundColor: primary,
       iconTheme: IconThemeData(color: primary),
       title: Text(
         getTranslated(context, "Products")!,
         style: TextStyle(
-          color: Colors.white,
+          color:primary1,
         ),
       ),
       elevation: 5,
@@ -537,7 +537,7 @@ class StateProduct extends State<ProductList> with TickerProviderStateMixin {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: Icon(Icons.arrow_back)),
+                child: Icon(Icons.arrow_back,color: primary1,)),
           );
         },
       ),
@@ -553,7 +553,7 @@ class StateProduct extends State<ProductList> with TickerProviderStateMixin {
               padding: const EdgeInsets.all(4.0),
               child: Icon(
                 Icons.filter_alt_outlined,
-                color: primary,
+                color: primary1,
                 size: 25,
               ),
             ),
@@ -575,7 +575,7 @@ class StateProduct extends State<ProductList> with TickerProviderStateMixin {
               padding: const EdgeInsets.all(4.0),
               child: Icon(
                 Icons.search,
-                color: primary,
+                color: primary1,
                 size: 25,
               ),
             ),
@@ -591,7 +591,7 @@ class StateProduct extends State<ProductList> with TickerProviderStateMixin {
                 padding: const EdgeInsets.all(4.0),
                 child: Icon(
                   listType ? Icons.grid_view : Icons.list,
-                  color: primary,
+                  color: primary1,
                   size: 25,
                 ),
               ),
@@ -614,7 +614,7 @@ class StateProduct extends State<ProductList> with TickerProviderStateMixin {
               color: primary,
               icon: Icon(
                 Icons.more_vert,
-                color: primary,
+                color: primary1,
               ),
               padding: EdgeInsets.zero,
               onSelected: (dynamic value) {

@@ -144,6 +144,7 @@ class SubsProvider with ChangeNotifier {
         'status': selectedStatus,
       });
       print(request.fields);
+      print(request.url);
       http.StreamedResponse response = await request.send();
       var json = jsonDecode(await response.stream.bytesToString());
       if (response.statusCode == 200 && json['status']) {

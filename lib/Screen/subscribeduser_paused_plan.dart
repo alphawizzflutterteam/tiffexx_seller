@@ -7,6 +7,7 @@ import 'package:tiffexx_seller/Helper/Session.dart';
 import 'package:tiffexx_seller/Provider/SubscriptionProvider.dart';
 import 'package:tiffexx_seller/Screen/SubscriptionDetailScreen.dart';
 import 'package:tiffexx_seller/Screen/UserPlanDetailScreen.dart';
+import 'package:tiffexx_seller/Screen/subscribed_user_paused_plan_details.dart';
 import 'package:tiffexx_seller/noInternet.dart';
 
 class SubscribedUserPausedPlan extends StatefulWidget {
@@ -46,7 +47,7 @@ class _SubscribedUserPausedPlanState extends State<SubscribedUserPausedPlan> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UserPlanDetailScreen(
+                      builder: (context) => SubscribedUserPausedPlanDetails(
                           data: val.pausedPlans[index]),
                     ));
               },
