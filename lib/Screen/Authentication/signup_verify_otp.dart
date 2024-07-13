@@ -189,7 +189,7 @@ class _MobileOTPState extends State<SignUpVerifyOtp1> with TickerProviderStateMi
       'store_name': widget.restaurantName,
       'tax_name': widget.gstName,
       'tax_number': widget.gstNumber,
-      'fssai_number': widget.fassiNumber,
+      'fassai_number': widget.fassiNumber,
       'aadhar_number': widget.aadharNumber,
       'pan_number': widget.panNumber,
       'lat':widget.lat,

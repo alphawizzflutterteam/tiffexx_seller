@@ -820,6 +820,7 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
                                 print('kkkkkkkkkk');
                                 sendOtp();
 
+
                                 // signUpSeller();
                                 // if(_selectedAccountType==null)
                                 //   {
@@ -1013,51 +1014,48 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
     // };
     var request = http.MultipartRequest('POST', Uri.parse('${baseUrl}send_otp'));
     request.fields.addAll({
-      'mobile':widget.mobile
-      // 'name': widget.name,
-      // 'mobile': widget.mobile,
-      // 'email': widget.email,
-      // 'password': widget.password,
-      // 'confirm_password': widget.confirmPassword,
-      // 'address': widget.permanentAddress,
-      // 'current_address': widget.currentAddress,
-      // 'lat':widget.lat,
-      // 'lang':widget.long,
-      // 'lat2':widget.lat2,
-      // 'lang2':widget.long2,
-      // 'vehicle_no':widget.vehicleNumber,
-      // 'bonus':'0',
-      // 'wallet_amount':'0',
-      // 'city':widget.city,
-      // 'driving_license':widget.drivingLicenseImage,
-      // 'store_name': widget.restaurantName,
-      // 'tax_name': widget.gstName,
-      // 'tax_number': widget.gstNumber,
-      // 'fssai_number': widget.fassiNumber,
-      // 'bank_code': widget.aadharNumber,
-      // 'rc_number': widget.rcNumber,
-      // 'pan_number': widget.panNumber,
-      // 'restaurant_description': widget.restaurantDescription,
-      // 'restaurant_address': widget.restaurantAddress,
-      // 'restaurant_type': widget.restaurantType,
-      // 'account_number': accountNumberController.text,
-      // 'confirm_account_no': confirmAccountNumberController.text,
-      // 'account_name': accountNameController.text,
-      // 'banke_code': bankCodeController.text,
-      // 'ifsc_code': ifscCodeController.text,
-      // 'bank_name': bankNameController.text,
-      // 'branch': branchNameController.text,
-      // 'account_type': _selectedAccountType ?? '',
+      'name': widget.ownerName,
+      'mobile': widget.mobile,
+      'email': widget.email,
+      'password': widget.password,
+      'confirm_password': widget.confirmPassword,
+      'address': widget.owneraddress,
+      'store_name': widget.restaurantName,
+      'tax_name': widget.gstName,
+      'tax_number': widget.gstNumber,
+      'fassai_number': widget.fassiNumber,
+      'aadhar_number': widget.aadharNumber,
+      'pan_number': widget.panNumber,
+      'lat':widget.lat,
+      'lang':widget.long,
+      'lat2':widget.lat2,
+      'lang2':widget.long2,
+      'restaurant_description': widget.restaurantDescription,
+      'restaurant_address': widget.restaurantAddress,
+      'restaurant_type': widget.restaurantType,
+      'account_no': accountNumberController.text,
+      'confirm_account_no': confirmAccountNumberController.text,
+      'account_holder_name': accountNameController.text,
+      'banke_code': bankCodeController.text,
+      'ifsc_code': ifscCodeController.text,
+      'banke_name': bankNameController.text,
+      'branch': branchNameController.text,
+      'account_type': _selectedAccountType ?? '',
 
 
     });
+    request.files.add(await http.MultipartFile.fromPath('store_logo', widget.logoImage));
+    request.files.add(await http.MultipartFile.fromPath('address_proof', widget.addressProofImage));
+    print("Aaddd onn parametyeer ${request.fields}");
+    print("Aaddd onn parametyeer ${request.files}");
+    print("Aaddd onn parametyeer ${request.url}");
     // request.files.add(await http.MultipartFile.fromPath('profile_pic', widget.profileImage));
     // request.files.add(await http.MultipartFile.fromPath('driving_license', widget.drivingLicenseImage));
     // request.files.add(await http.MultipartFile.fromPath('address_proof', widget.aadharFront));
     // request.files.add(await http.MultipartFile.fromPath('address_proof_back', widget.aadharBack));
     // request.files.add(await http.MultipartFile.fromPath('rc_image', widget.rcImage));
-    print("Aaddd onn parametyeer ${request.fields}");
-    print("Aaddd onn parametyeer ${request.files}");
+    // print("Aaddd onn parametyeer ${request.fields}");
+    // print("Aaddd onn parametyeer ${request.files}");
     // if(addonImageList.length != 0){
     //   print("addon list here now ${addonImageList[0]}");
     //   for(var i=0;i<addonImageList.length;i++){
