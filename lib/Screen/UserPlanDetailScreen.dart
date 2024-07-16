@@ -440,6 +440,50 @@ class UserPlanDetailScreen extends StatelessWidget {
                           );
                         }
                       },
+                      todayBuilder: (context, date, _) {
+                        switch (getStatus(date)) {
+                          case '1':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.orange,
+                                title: 'Pending');
+                          case '2':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.grey,
+                                title: 'In Progress');
+                          case '3':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.blue,
+                                title: 'Picked Up');
+                          case '4':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.purpleAccent,
+                                title: 'On The Way');
+                          case '5':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.green,
+                                title: 'Delivered');
+                          case '6':
+                            return OrderStatus(
+                                date: date, color: Colors.red, title: 'Leave');
+                          case '7':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.black,
+                                title: 'Cancel By User');
+                          case '8':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.pinkAccent,
+                                title: 'Pause');
+                          default:
+                            return null;
+                        }
+                      },
                       defaultBuilder: (context, date, _) {
                         switch (getStatus(date)) {
                           case '1':
