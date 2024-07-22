@@ -258,9 +258,10 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
         bool error = getdata["error"];
         String? msg = getdata["message"];
         print(getUserLoginApi);
-        Fluttertoast.showToast(msg: msg ?? '');
+
         //setSnackbar(msg!);
         if (!error) {
+          Fluttertoast.showToast(msg: msg ?? '',backgroundColor: Colors.green,textColor: Colors.white);
           //setSnackbar(msg!);
           var data = getdata["data"][0];
           id = data[Id];
@@ -323,7 +324,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           );
         } else {
           await buttonController!.reverse();
-          setSnackbar(msg!);
+          Fluttertoast.showToast(msg: msg ?? '',backgroundColor: Colors.red,textColor: Colors.white);
 
         }
       },

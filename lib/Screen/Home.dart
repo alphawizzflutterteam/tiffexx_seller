@@ -1948,7 +1948,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   color: primary,
                 ),
                 Text(
-                  "Today's Paused Plan",
+                  "Today's Paused Tiffin",
                 /*  getTranslated(context, "ORDER")!,*/
                   style: TextStyle(
                     color: grey,
@@ -2090,7 +2090,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   color: primary,
                 ),
                 Text(
-                  "Today's Plans",
+                  "Today's Tiffin",
                   // getTranslated(context, "PRODUCT_LBL")!,
                   style: TextStyle(
                     color: grey,
