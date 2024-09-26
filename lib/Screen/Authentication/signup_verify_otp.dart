@@ -577,13 +577,14 @@ bool isLoading=false;
                 color: fontColor,
                 fontWeight: FontWeight.normal,
               ),
-            ),     Text(
-              "OTP-${widget.otp}",
-              style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                color: fontColor,
-                fontWeight: FontWeight.normal,
-              ),
             ),
+            // Text(
+            //   "OTP-${widget.otp}",
+            //   style: Theme.of(context).textTheme.subtitle1!.copyWith(
+            //     color: fontColor,
+            //     fontWeight: FontWeight.normal,
+            //   ),
+            // ),
           ],
         ),
       ),
