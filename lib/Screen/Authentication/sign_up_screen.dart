@@ -455,7 +455,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                             FocusScope.of(context).requestFocus(passFocus);
                           },
                           keyboardType: TextInputType.text,
-                          obscureText: showPass == true ? false : true,
+                          obscureText: showPass1 == true ? false : true,
                           controller: confirmPasswordController,
                           style: TextStyle(
                             color: fontColor,

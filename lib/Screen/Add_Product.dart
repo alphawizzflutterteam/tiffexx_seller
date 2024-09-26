@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tiffexx_seller/Helper/AppBtn.dart';
 import 'package:tiffexx_seller/Helper/Color.dart';
 import 'package:tiffexx_seller/Helper/Constant.dart';
@@ -6131,12 +6132,36 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
         String msg = getdata['message'];
         if (!error) {
           await buttonController!.reverse();
+          Fluttertoast.showToast(msg: msg,backgroundColor: Colors.green, textColor: Colors.white);
+          // SnackBar(
+          //   content: new Text(
+          //     msg,
+          //     textAlign: TextAlign.center,
+          //     style: TextStyle(color: Colors.white),
+          //   ),
+          //   backgroundColor: Colors.green,
+          //   elevation: 1.0,
+          // );
 
-          setSnackbar(msg);
+          // setSnackbar(msg);
           Navigator.pop(context);
         } else {
           await buttonController!.reverse();
-          setSnackbar(msg);
+          Fluttertoast.showToast(msg: msg,backgroundColor: Colors.red, textColor: Colors.white);
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   new SnackBar(
+          //     content: new Text(
+          //       msg,
+          //       textAlign: TextAlign.center,
+          //       style: TextStyle(color: Colors.white),
+          //     ),
+          //     backgroundColor: Colors.red,
+          //     elevation: 1.0,
+          //
+          //   ),
+          // );
+          //
+          // setSnackbar(msg);
         }
       } on TimeoutException catch (_) {
         // setSnackbar(

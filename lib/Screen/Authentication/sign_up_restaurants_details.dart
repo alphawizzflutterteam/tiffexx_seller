@@ -534,7 +534,7 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           // onFieldSubmitted: (v) {
                           //   FocusScope.of(context).requestFocus(passFocus);
                           // },
-                          keyboardType: TextInputType.number,
+                          // keyboardType: TextInputType.,
                           controller: panNumberController,
                           style: TextStyle(
                             color: fontColor,
