@@ -82,7 +82,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       totalcustCount,
       totaldelBoyCount,
       totalsoldOutCount,
-      totallowStockCount,today_pause_delivery,today_delivery;
+      totallowStockCount,
+      today_pause_delivery,
+      today_delivery;
 
   var totalSales;
   var adminCommission;
@@ -375,7 +377,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   TextButton(
                     style: curChart == 0
                         ? TextButton.styleFrom(
-                            foregroundColor: Colors.white, backgroundColor: primary, disabledForegroundColor: Colors.grey.withOpacity(0.38),
+                            foregroundColor: Colors.white,
+                            backgroundColor: primary,
+                            disabledForegroundColor:
+                                Colors.grey.withOpacity(0.38),
                           )
                         : null,
                     onPressed: () {
@@ -392,7 +397,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   TextButton(
                     style: curChart == 1
                         ? TextButton.styleFrom(
-                            foregroundColor: Colors.white, backgroundColor: primary, disabledForegroundColor: Colors.grey.withOpacity(0.38),
+                            foregroundColor: Colors.white,
+                            backgroundColor: primary,
+                            disabledForegroundColor:
+                                Colors.grey.withOpacity(0.38),
                           )
                         : null,
                     onPressed: () {
@@ -409,7 +417,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   TextButton(
                     style: curChart == 2
                         ? TextButton.styleFrom(
-                            foregroundColor: Colors.white, backgroundColor: primary, disabledForegroundColor: Colors.grey.withOpacity(0.38),
+                            foregroundColor: Colors.white,
+                            backgroundColor: primary,
+                            disabledForegroundColor:
+                                Colors.grey.withOpacity(0.38),
                           )
                         : null,
                     onPressed: () {
@@ -853,8 +864,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             NO_OFF_RATTING = data[NoOfRatings] ?? "";
             NO_OFF_RATTING = data[NoOfRatings] ?? "";
             var id = data[Id];
-            today_pause_delivery=data['today_pause_delivery'];
-            today_delivery=data['today_delivery'];
+            today_pause_delivery = data['today_pause_delivery'];
+            today_delivery = data['today_delivery'];
             var username = data[Username];
             var email = data[Email];
             var mobile = data[Mobile];
@@ -973,7 +984,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            onOf ? Text("Online",style: TextStyle(color: primary1),) : Text("Offline",style: TextStyle(color: primary1),),
+            onOf
+                ? Text(
+                    "Online",
+                    style: TextStyle(color: primary1),
+                  )
+                : Text(
+                    "Offline",
+                    style: TextStyle(color: primary1),
+                  ),
           ],
         ),
         CupertinoSwitch(
@@ -1011,7 +1030,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   getDrawer(BuildContext context) {
     return Drawer(
-
       child: SafeArea(
         child: Container(
           color: white,
@@ -1052,6 +1070,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   Icons.lock_outline),
               _getDrawerItem(
                   9, getTranslated(context, "CONTACTUS")!, Icons.contact_page),
+              Divider(),
+              _getDrawerItem(
+                  9, getTranslated(context, "DELETEACCOUNT")!, Icons.delete),
               Divider(),
               _getDrawerItem(
                   8, getTranslated(context, "LOGOUT")!, Icons.home_outlined),
@@ -1361,7 +1382,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           } else if (title == getTranslated(context, "LOGOUT")!) {
             Navigator.pop(context);
             logOutDailog();
-          } else if (title == "Add Product") {
+          } else if (title == getTranslated(context, "DELETE")!) {
+            Navigator.pop(context);
+            deleteDailog();
+          }
+
+          //     } else if (title == getTranslated(context, "DELETE")!) {
+          //   Navigator.pop(context);
+          //   deletetDailog();
+          // }
+
+          else if (title == "Add Product") {
             setState(
               () {
                 curDrwSel = index;
@@ -1557,6 +1588,60 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               ),
               content: Text(
                 getTranslated(context, "LOGOUTTXT")!,
+                style: Theme.of(this.context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(color: fontColor),
+              ),
+              actions: <Widget>[
+                new TextButton(
+                    child: Text(
+                      getTranslated(context, "LOGOUTNO")!,
+                      style: Theme.of(this.context)
+                          .textTheme
+                          .subtitle2!
+                          .copyWith(
+                              color: lightBlack, fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    }),
+                new TextButton(
+                  child: Text(
+                    getTranslated(context, "LOGOUTYES")!,
+                    style: Theme.of(this.context).textTheme.subtitle2!.copyWith(
+                        color: fontColor, fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {
+                    clearUserSession();
+                    logoutApi();
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => Login()),
+                        (Route<dynamic> route) => false);
+                  },
+                )
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  deleteDailog() async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setStater) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5.0),
+                ),
+              ),
+              content: Text(
+                getTranslated(context, "DELETEACCOUNT")!,
                 style: Theme.of(this.context)
                     .textTheme
                     .subtitle1!
@@ -1869,11 +1954,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ],
     );
   }
+
   plansWidget() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-
         // getBalanceButton(),
         getTodayPlan(),
         getOrderPaused(),
@@ -1925,6 +2010,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
     );
   }
+
   getOrderPaused() {
     return Expanded(
       flex: 3,
@@ -1948,8 +2034,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   color: primary,
                 ),
                 Text(
+
                   "Today's Paused Tiffin",
                 /*  getTranslated(context, "ORDER")!,*/
+
                   style: TextStyle(
                     color: grey,
                   ),
@@ -2065,6 +2153,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
     );
   }
+
   getTodayPlan() {
     return Expanded(
       flex: 3,
@@ -2073,8 +2162,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SubscribedUserPausedPlan(value: '1',
-
+              builder: (context) => SubscribedUserPausedPlan(
+                value: '1',
               ),
             ),
           );
@@ -2097,14 +2186,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
-              Text(
-                today_delivery.toString(),
-                        style: TextStyle(
-                          color: black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      )
+                Text(
+                  today_delivery.toString(),
+                  style: TextStyle(
+                    color: black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                )
               ],
             ),
           ),
@@ -2597,5 +2686,4 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     super.dispose();
   }
 }
-//==============================================================================
-//==============================================================================
+
