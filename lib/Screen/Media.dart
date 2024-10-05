@@ -304,7 +304,7 @@ class _MediaState extends State<Media> with TickerProviderStateMixin {
 
   getMediaItem(int index) {
     print(
-        "selected main image here ${productImage} and ${productImageUrl}");
+        "selected main image here ${productImage} and ${productImageUrl}sdgsdfgsdfgsdfg");
     return Card(
       child: InkWell(
         onTap: () {

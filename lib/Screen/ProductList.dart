@@ -211,7 +211,8 @@ class StateProduct extends State<ProductList> with TickerProviderStateMixin {
 
       if (_controller.length < index + 1)
         _controller.add(new TextEditingController());
-
+print('dsgsdfgsdfgs${model.selVarient!}');
+if( model.prVarientList!.length  >= (model.selVarient! + 1) )
       _controller[index].text =
           model.prVarientList![model.selVarient!].cartCount!;
       print(model.totalAllow);
@@ -220,13 +221,16 @@ class StateProduct extends State<ProductList> with TickerProviderStateMixin {
               ? int.parse(model.totalAllow.toString())
               : 10,
           (i) => (i + 1).toString());
+      double? price ;
+ if(model.prVarientList!.length  >= (model.selVarient! + 1) )
+   {
+      price =
+     double.parse(model.prVarientList![model.selVarient!].disPrice!);
+     if (price == 0) {
+       price = double.parse(model.prVarientList![model.selVarient!].price!);
+     }
 
-      double price =
-          double.parse(model.prVarientList![model.selVarient!].disPrice!);
-      if (price == 0) {
-        price = double.parse(model.prVarientList![model.selVarient!].price!);
-      }
-
+   }
       return Card(
         elevation: 0,
         child: InkWell(

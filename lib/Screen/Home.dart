@@ -1076,6 +1076,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               Divider(),
               _getDrawerItem(
                   8, getTranslated(context, "LOGOUT")!, Icons.home_outlined),
+              SizedBox(height: 10,),
+              
+              Center(child: Text('Copyright 2023')),
+              SizedBox(height: 10,)
             ],
           ),
         ),

@@ -35,6 +35,33 @@ class _SignUpScreenState extends State<SignUpScreen>
   bool showPass = false;
   bool showPass1 = false;
 
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password is required.';
+    }
+
+    const minLength = 8;
+    final hasAlphabet = RegExp(r'[a-zA-Z]');
+    final hasNumber = RegExp(r'\d');
+    final hasSpecialChar = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
+
+    if (value.length < minLength) {
+      return 'Password must be at least $minLength characters\nlong.';
+    }
+    if (!hasAlphabet.hasMatch(value)) {
+      return 'Password must contain at least one alphabetic\ncharacter.';
+    }
+    if (!hasNumber.hasMatch(value)) {
+      return 'Password must contain at least one number.';
+    }
+    if (!hasSpecialChar.hasMatch(value)) {
+      return 'Password must contain at least one special \ncharacter.';
+    }
+
+    return null; // Password is valid
+  }
+
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   TextEditingController mobilenumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -395,7 +422,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                           ),
                           focusNode: passFocus,
                           textInputAction: TextInputAction.next,
-                          validator: (val) => validatePass(val!, context),
+                          validator: (val) =>  validatePassword( val),
                           // onSaved: (String? value) {
                           //   password = value;
                           // },

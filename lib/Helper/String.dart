@@ -275,7 +275,7 @@ const String IsReturnable = 'is_returnable';
 const String IsCancelable = 'is_cancelable';
 const String CancelableTill = 'cancelable_till';
 const String ProInputImage =
-    'pro_input_image'; // temp here painding in product temp value API call time
+    'pro_image_input'; // temp here painding in product temp value API call time
 const String OtherImages = 'other_images';
 const String VideoType = 'video_type';
 const String Video = 'video';

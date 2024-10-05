@@ -47,6 +47,8 @@ class _EditProductState extends State<EditProduct>
 
 // temprary variable for test
   late Map<String, List<AttributeValueModel>> selectedAttributeValues = {};
+  bool  ortherImageType=false;
+  bool  mainImageType=false;
 // => Variable For UI ...
   // for UI
   String? selectedCatName; // for UI
@@ -311,6 +313,7 @@ class _EditProductState extends State<EditProduct>
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   bool todaySpeciall = false;
+  final picker =  ImagePicker();
 
   getSubCat(id) async {
     var header = headers;
@@ -333,6 +336,84 @@ class _EditProductState extends State<EditProduct>
       }
     } else {
       print(response.reasonPhrase);
+    }
+  }
+  _getMainFromGallery() async {
+    XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      mainImageType=true;
+      setState(() {
+        productImage =pickedFile.path;
+      });
+      Navigator.of(context).pop();
+    }
+  }
+
+  _getMainFromCamera() async {
+
+    XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      mainImageType=true;
+      setState(() {
+        productImage =pickedFile.path;
+      });
+      Navigator.of(context).pop();
+    }
+  }
+
+  _getOrdersFromGallery() async {
+    // if(ortherImageType==false)
+    // {
+    //   ortherImageType=true;
+    //   otherPhotos.clear();
+    //   otherImageUrl.clear();
+    //   setState(() {
+    //
+    //   });
+    // }
+    XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        otherNewPhotos.add(pickedFile.path);
+
+      });
+      Navigator.of(context).pop();
+    }
+  }
+
+  _getOrdersFromCamera() async {
+    // if(ortherImageType==false)
+    //   {
+    //     ortherImageType=true;
+    //     otherPhotos.clear();
+    //     otherImageUrl.clear();
+    //     setState(() {
+    //
+    //     });
+    //   }
+    XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        // productImage =pickedFile.path;
+        otherNewPhotos.add(pickedFile.path);
+      });
+      Navigator.of(context).pop();
     }
   }
 
@@ -435,6 +516,7 @@ class _EditProductState extends State<EditProduct>
 
   @override
   void initState() {
+    otherNewPhotos.clear();
     model = widget.model;
     getTax();
     Future.delayed(Duration(milliseconds: 300), () {
@@ -449,7 +531,7 @@ class _EditProductState extends State<EditProduct>
     buttonController = new AnimationController(
         duration: new Duration(milliseconds: 2000), vsync: this);
 
-    productImage = '';
+    productImage = null;
     productImageUrl = '';
     if (model != null) {
       productImage = model!.image.toString().split("eatoz.in/").last;
@@ -1767,7 +1849,7 @@ class _EditProductState extends State<EditProduct>
             child: Container(
               width: width * 0.4,
               child: Text(
-                "Discount :",
+                "Discount %:",
                 style: TextStyle(
                   fontSize: 16,
                   color: black,
@@ -3524,35 +3606,84 @@ class _EditProductState extends State<EditProduct>
               ),
             ),
             onTap: () async {
-              var result = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Media(from: "main"),
-                ),
-              );
-              if (result != null) {
-                setState(() {
-                  productImage = result[0];
-                  productImageUrl = result[1];
-                });
-              }
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text("Select Image option"),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                _getMainFromCamera();
+                              },
+                              child: Text(
+                                "Click Image from Camera",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              )),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          InkWell(
+                              onTap: () {
+                                _getMainFromGallery();
+                              },
+                              child: Text(
+                                "Upload Image from Gallery",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ))
+                        ],
+                      ),
+                    );
+                  });
+              // var result = await Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => Media(from: "main"),
+              //   ),
+              // );
+              // if (result != null) {
+              //   setState(() {
+              //     productImage = result[0];
+              //     productImageUrl = result[1];
+              //   });
+              // }
             },
           ),
         ],
       ),
     );
   }
-
+  //
+  // selectedMainImageShow() {
+  //   return productImage == ''
+  //       ? Container()
+  //       : Image.network(
+  //           productImageUrl,
+  //           width: 100,
+  //           height: 100,
+  //         );
+  // }
   selectedMainImageShow() {
-    return productImage == ''
+    return productImage == null
         ? Container()
-        : Image.network(
-            productImageUrl,
-            width: 100,
-            height: 100,
-          );
+        :  mainImageType==true  ?   Image.file(
+      File(productImage  ?? ''),
+      width: 100,
+      height: 100,
+    )  :  Image.network(
+      productImage  ?? '',
+      width: 100,
+      height: 100,
+    ) ;
   }
-
 //------------------------------------------------------------------------------
 //========================= Other Image ========================================
 
@@ -3585,22 +3716,59 @@ class _EditProductState extends State<EditProduct>
               ),
             ),
             onTap: () async {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text("Select Image option"),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                _getOrdersFromCamera();
+                              },
+                              child: Text(
+                                "Click Image from Camera",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              )),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          InkWell(
+                              onTap: () {
+                                _getOrdersFromGallery();
+                              },
+                              child: Text(
+                                "Upload Image from Gallery",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ))
+                        ],
+                      ),
+                    );
+                  });
 
-              var result = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Media(
-                    from: from,
-                    pos: pos,
-                  ),
-                ),
-              );
-              if (result != null) {
-                setState(() {
-                  otherPhotos = result[0];
-                  otherImageUrl = result[1];
-                });
-              }
+              // var result = await Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => Media(
+              //       from: from,
+              //       pos: pos,
+              //     ),
+              //   ),
+              // );
+              // if (result != null) {
+              //   setState(() {
+              //     otherPhotos = result[0];
+              //     otherImageUrl = result[1];
+              //   });
+              // }
               //otherImagesFromGallery();
             },
           ),
@@ -3653,54 +3821,165 @@ class _EditProductState extends State<EditProduct>
           );
   }
 
+  // uploadedOtherImageShow() {
+  //   return otherImageUrl.isEmpty
+  //       ? Container()
+  //       : Container(
+  //           width: double.infinity,
+  //           height: 105,
+  //           child: ListView.builder(
+  //             shrinkWrap: true,
+  //             itemCount: otherImageUrl.length,
+  //             scrollDirection: Axis.horizontal,
+  //             itemBuilder: (context, i) {
+  //               return InkWell(
+  //                 child: Stack(
+  //                   alignment: AlignmentDirectional.topEnd,
+  //                   children: [
+  //                     Image.network(
+  //                       otherImageUrl[i],
+  //                       width: 100,
+  //                       height: 100,
+  //                     ),
+  //                     Container(
+  //                       color: Colors.black26,
+  //                       child: const Icon(
+  //                         Icons.clear,
+  //                         size: 15,
+  //                       ),
+  //                     )
+  //                   ],
+  //                 ),
+  //                 onTap: () {
+  //                   if (mounted) {
+  //                     setState(
+  //                       () {
+  //
+  //                         otherPhotos.removeAt(i);
+  //                         otherImageUrl.removeAt(i);
+  //
+  //
+  //                       },
+  //                     );
+  //                   }
+  //                 },
+  //               );
+  //             },
+  //           ),
+  //         );
+  // }
   uploadedOtherImageShow() {
-    return otherImageUrl.isEmpty
+    return otherPhotos.isEmpty
         ? Container()
         : Container(
-            width: double.infinity,
-            height: 105,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: otherImageUrl.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, i) {
-                return InkWell(
-                  child: Stack(
-                    alignment: AlignmentDirectional.topEnd,
-                    children: [
-                      Image.network(
-                        otherImageUrl[i],
-                        width: 100,
-                        height: 100,
-                      ),
-                      Container(
-                        color: Colors.black26,
-                        child: const Icon(
-                          Icons.clear,
-                          size: 15,
-                        ),
-                      )
-                    ],
+      width: double.infinity,
+      height: 105,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: otherPhotos.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, i) {
+          return InkWell(
+            child: Stack(
+              alignment: AlignmentDirectional.topEnd,
+              children: [
+                // ortherImageType == true ?         Image.file(
+                //   File(otherPhotos[i]),
+                //   width: 100,
+                //   height: 100,
+                // )  :
+                Image.network(
+                  otherPhotos[i],
+                  width: 100,
+                  height: 100,
+                ) ,
+                Container(
+                  color: Colors.black26,
+                  child: const Icon(
+                    Icons.clear,
+                    size: 15,
                   ),
-                  onTap: () {
-                    if (mounted) {
-                      setState(
-                        () {
+                )
+              ],
+            ),
+            onTap: () {
+              if (mounted) {
+                setState(
+                      () {
+                        // mainImageType=true;
+                        // otherPhotos.clear();
+                        // otherImageUrl.clear();
+                    otherPhotos.removeAt(i);
+                    otherImageUrl.removeAt(i);
 
-                          otherPhotos.removeAt(i);
-                          otherImageUrl.removeAt(i);
 
-
-                        },
-                      );
-                    }
                   },
                 );
-              },
-            ),
+              }
+            },
           );
+        },
+      ),
+    );
   }
 
+  uploadedOtherNewImageShow() {
+    return otherNewPhotos.isEmpty
+        ? Container()
+        : Container(
+      width: double.infinity,
+      height: 105,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: otherNewPhotos.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, i) {
+          return InkWell(
+            child: Stack(
+              alignment: AlignmentDirectional.topEnd,
+              children: [
+                // ortherImageType == true ?
+                Image.file(
+                  File(otherNewPhotos[i]),
+                  width: 100,
+                  height: 100,
+                )
+                //     :
+                // Image.network(
+                //   otherPhotos[i],
+                //   width: 100,
+                //   height: 100,
+                // )
+                ,
+                Container(
+                  color: Colors.black26,
+                  child: const Icon(
+                    Icons.clear,
+                    size: 15,
+                  ),
+                )
+              ],
+            ),
+            onTap: () {
+              if (mounted) {
+                setState(
+                      () {
+                        // mainImageType=true;
+                        // otherPhotos.clear();
+                        // otherImageUrl.clear();
+                        otherNewPhotos.removeAt(i);
+                    otherImageUrl.removeAt(i);
+
+
+                  },
+                );
+              }
+            },
+          );
+        },
+      ),
+    );
+  }
 //------------------------------------------------------------------------------
 //========================= Main Image =========================================
 
@@ -4160,7 +4439,7 @@ class _EditProductState extends State<EditProduct>
                           ? simpleProductPrice()
                           : Container(),
                       productType == 'simple_product'
-                          ?  SizedBox()//simpleProductSpecialPrice()
+                          ? simpleProductSpecialPrice()
                           : Container(),
 
                       // CheckboxListTile(
@@ -6172,6 +6451,7 @@ class _EditProductState extends State<EditProduct>
     _isNetworkAvail = await isNetworkAvailable();
     if (_isNetworkAvail) {
       try {
+
         var request = http.MultipartRequest("POST", editProductsApi);
         request.headers.addAll(headers);
         request.fields["edit_product_id"] = model!.id!;
@@ -6209,7 +6489,16 @@ class _EditProductState extends State<EditProduct>
         request.fields[CodAllowed] = isCODAllow!;
         request.fields[IsReturnable] = isReturnable!;
         request.fields[IsCancelable] = isCancelable!;
-        request.fields[ProInputImage] = productImage;
+        if(mainImageType==true)
+        {
+          if(ProInputImage!=null  &&  ProInputImage!='')
+            request.files.add(await http.MultipartFile.fromPath(
+                '${ProInputImage}',productImage  ?? ''));
+        }
+        else{
+          request.fields['$ProInputImage'] = productImage ?? '';
+        }
+
         if (tillwhichstatus != null)
           request.fields[CancelableTill] = tillwhichstatus!;
         // for product Image ADD
@@ -6217,14 +6506,42 @@ class _EditProductState extends State<EditProduct>
             ProInputImage, mainProductImage!.path);
         request.files.add(pic);*/
         // for Other Photos Add
-        if (otherPhotos.isNotEmpty) {
-          request.fields[OtherImages] = otherPhotos.join(",");
-          /*  for (var i = 0; i < otherPhotos.length; i++) {
-            var pics = await http.MultipartFile.fromPath(
-                OtherImages, otherPhotos[i].path);
-            request.files.add(pics);
-          }*/
-        }
+        otherNewPhotos.forEach((element) async {
+          request.files.add(await http.MultipartFile.fromPath(
+              'other_images[]',element  ?? ''));
+        });
+        request.fields['other_images'] = otherPhotos!.join(',').replaceAll('https://admin.tiffexx.com/', '');
+// if(ortherImageType==true)
+//   {
+//     otherPhotos.forEach((element) async {
+//       request.files.add(await http.MultipartFile.fromPath(
+//           'other_images[]',element  ?? ''));
+//     });
+//   }
+// else{
+//   print('sdfsdafsdfasf${otherPhotos.length}');
+//   request.fields['other_images'] = otherPhotos!.join(',').replaceAll('https://admin.tiffexx.com/', '');
+//   // otherPhotos.forEach((element) async {
+//   //   request.fields['other_images[]'] = element!.replaceAll('https://admin.tiffexx.com/', '');
+//   //   // request.fields['other_images[]']?.add(element);
+//   // });
+// }
+
+
+
+
+
+        // Comment this
+        // if (otherPhotos.isNotEmpty) {
+        //   request.fields[OtherImages] = otherPhotos.join(",");
+        //   /*  for (var i = 0; i < otherPhotos.length; i++) {
+        //     var pics = await http.MultipartFile.fromPath(
+        //         OtherImages, otherPhotos[i].path);
+        //     request.files.add(pics);
+        //   }*/
+        // }
+
+
         if (selectedTypeOfVideo != null)
           request.fields[VideoType] = selectedTypeOfVideo!;
         if (vidioTypeController.text != "")
@@ -6367,7 +6684,7 @@ class _EditProductState extends State<EditProduct>
             indicatorField(),
             discount1(),
             discountLimit(),
-            hsnCode(),
+            // hsnCode(),
             // totalAllowedQuantity(),
             //minimumOrderQuantity(),
             //_quantityStepSize(),
@@ -6423,6 +6740,7 @@ class _EditProductState extends State<EditProduct>
             selectedMainImageShow(),
             otherImages("other", 0), //only API panding
             uploadedOtherImageShow(),
+            uploadedOtherNewImageShow(),
             //    videoUpload(), // only API pandings
             //   selectedVideoShow(),
             //  videoType(),

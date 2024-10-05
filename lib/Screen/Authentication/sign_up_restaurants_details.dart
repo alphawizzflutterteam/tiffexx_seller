@@ -940,8 +940,8 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                               {
                                 if(_selectedRestaurantType == null)
                                   Fluttertoast.showToast(msg: 'Please Select Restaurant type');
-                                else if(logoImage==null)
-                                  Fluttertoast.showToast(msg: 'Please Upload Logo');
+                                // else if(logoImage==null)
+                                //   Fluttertoast.showToast(msg: 'Please Upload Logo');
                                 else
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpBankDetails(ownerName: widget.ownerName,confirmPassword: widget.confirmPassword,password: widget.password,email: widget.email,owneraddress: widget.owneraddress, mobile:widget.mobile,addressProofImage: widget.addressProofImage ?? '',
                                   aadharNumber: aadharNumberController.text,fassiNumber: fssaiNumberController.text,gstName: gstNameController.text,gstNumber: gstNumberController.text,panNumber: panNumberController.text,restaurantAddress: addressController.text,restaurantDescription: descriptionController.text,restaurantName: restaurantNameController.text,restaurantType: _selectedRestaurantType ?? "",logoImage: logoImage ?? '',lat: widget.lat,long: widget.long,lat2: lat2.toString(),long2: long2.toString(),)));
@@ -1088,7 +1088,7 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
-          'Restaurants Details'
+          'Business Details'
          /* getTranslated(context, 'SIGNUp_LBL')!*/,
           style: const TextStyle(
             color: primary,

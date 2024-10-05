@@ -1036,15 +1036,17 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
       'account_no': accountNumberController.text,
       'confirm_account_no': confirmAccountNumberController.text,
       'account_holder_name': accountNameController.text,
-      'banke_code': bankCodeController.text,
+      'bank_code': bankCodeController.text,
       'ifsc_code': ifscCodeController.text,
-      'banke_name': bankNameController.text,
+      'bank_name': bankNameController.text,
       'branch': branchNameController.text,
       'account_type': _selectedAccountType ?? '',
 
 
     });
+    if(widget.logoImage!='')
     request.files.add(await http.MultipartFile.fromPath('store_logo', widget.logoImage));
+    if(widget.addressProofImage!='')
     request.files.add(await http.MultipartFile.fromPath('address_proof', widget.addressProofImage));
     print("Aaddd onn parametyeer ${request.fields}");
     print("Aaddd onn parametyeer ${request.files}");
@@ -1137,11 +1139,11 @@ class _SignUpBankDetailsState extends State<SignUpBankDetails> with TickerProvid
       'account_no': accountNumberController.text,
       'confirm_account_no': confirmAccountNumberController.text,
       'account_holder_name': accountNameController.text,
-      'banke_code': bankCodeController.text,
+      'bank_code': bankCodeController.text,
       'ifsc_code': ifscCodeController.text,
-      'banke_name': bankNameController.text,
+      'bank_name': bankNameController.text,
       'branch': branchNameController.text,
-      'account_type': _selectedAccountType ?? '',
+      'account_type': _selectedAccountType == 'Veg'  ?  '1'  :  _selectedAccountType == 'Non-Veg'   ?  '2'  : '3' ,
 
     });
     request.files.add(await http.MultipartFile.fromPath('store_logo', widget.logoImage));
