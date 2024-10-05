@@ -202,14 +202,16 @@ class _MobileOTPState extends State<SignUpVerifyOtp1> with TickerProviderStateMi
       'account_no': widget.accountNumberController,
       'confirm_account_no': widget.confirmAccountNumberController,
       'account_holder_name': widget.accountNameController,
-      'banke_code': widget.bankCodeController,
+      'bank_code': widget.bankCodeController,
       'ifsc_code': widget.ifscCodeController,
-      'banke_name': widget.bankNameController,
+      'bank_name': widget.bankNameController,
       'branch': widget.branchNameController,
       'account_type': widget.selectedAccountType ?? '',
 
     });
+    if(widget.logoImage !='')
     request.files.add(await http.MultipartFile.fromPath('store_logo', widget.logoImage));
+    if(widget.addressProofImage !='')
     request.files.add(await http.MultipartFile.fromPath('address_proof', widget.addressProofImage));
     print("Aaddd onn parametyeer ${request.fields}");
     print("Aaddd onn parametyeer ${request.files}");

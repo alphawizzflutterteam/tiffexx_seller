@@ -33,8 +33,10 @@ class AddProduct extends StatefulWidget {
   _AddProductState createState() => _AddProductState();
 }
 
-late String productImage, productImageUrl, uploadedVideoName;
+late String  productImageUrl, uploadedVideoName;
+String?  productImage;
 late List<String> otherPhotos = [];
+late List<String> otherNewPhotos = [];
 late List<String> otherImageUrl = [];
 List<Product_Varient> variationList = [];
 
@@ -89,6 +91,63 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
     if (pickedFile != null) {
       setState(() {
         addonImage = File(pickedFile.path);
+      });
+      Navigator.of(context).pop();
+    }
+  }
+_getMainFromGallery() async {
+    XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        productImage =pickedFile.path;
+      });
+      Navigator.of(context).pop();
+    }
+  }
+
+  _getMainFromCamera() async {
+    XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        productImage =pickedFile.path;
+      });
+      Navigator.of(context).pop();
+    }
+  }
+
+  _getOrdersFromGallery() async {
+    XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        otherNewPhotos.add(pickedFile.path);
+
+      });
+      Navigator.of(context).pop();
+    }
+  }
+
+  _getOrdersFromCamera() async {
+    XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        // productImage =pickedFile.path;
+        otherNewPhotos.add(pickedFile.path);
       });
       Navigator.of(context).pop();
     }
@@ -371,8 +430,10 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
 
   String? indicator;
 
+
   @override
   void initState() {
+
     getTax();
     getCat();
     // getAttributesValue();
@@ -386,7 +447,7 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
     buttonController = new AnimationController(
         duration: new Duration(milliseconds: 2000), vsync: this);
 
-    productImage = '';
+    productImage = null;
     productImageUrl = '';
     uploadedVideoName = '';
     otherPhotos = [];
@@ -1528,7 +1589,7 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
             child: Container(
               width: width * 0.4,
               child: Text(
-                "Discount :",
+                "Discount % :",
                 style: TextStyle(
                   fontSize: 16,
                   color: black,
@@ -3352,12 +3413,49 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
               ),
             ),
             onTap: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Media(from: "main"),
-                ),
-              );
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text("Select Image option"),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                _getMainFromCamera();
+                              },
+                              child: Text(
+                                "Click Image from Camera",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              )),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          InkWell(
+                              onTap: () {
+                                _getMainFromGallery();
+                              },
+                              child: Text(
+                                "Upload Image from Gallery",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ))
+                        ],
+                      ),
+                    );
+                  });
+              // await Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => Media(from: "main"),
+              //   ),
+              // );
               setState(() {});
             },
           ),
@@ -3367,10 +3465,10 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
   }
 
   selectedMainImageShow() {
-    return productImage == ''
+    return productImage == null
         ? Container()
-        : Image.network(
-            productImageUrl,
+        : Image.file(
+      File(productImage  ?? ''),
             width: 100,
             height: 100,
           );
@@ -3407,15 +3505,52 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
               ),
             ),
             onTap: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Media(
-                    from: from,
-                    pos: pos,
-                  ),
-                ),
-              );
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text("Select Image option"),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                _getOrdersFromCamera();
+                              },
+                              child: Text(
+                                "Click Image from Camera",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              )),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          InkWell(
+                              onTap: () {
+                              _getOrdersFromGallery();
+                              },
+                              child: Text(
+                                "Upload Image from Gallery",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ))
+                        ],
+                      ),
+                    );
+                  });
+              // await Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => Media(
+              //       from: from,
+              //       pos: pos,
+              //     ),
+              //   ),
+              // );
               setState(() {});
               //otherImagesFromGallery();
             },
@@ -3470,7 +3605,7 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
   }
 
   uploadedOtherImageShow() {
-    return otherImageUrl.isEmpty
+    return otherPhotos.isEmpty
         ? Container()
         : Container(
             width: double.infinity,
@@ -3486,8 +3621,8 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
                     child: Stack(
                       alignment: AlignmentDirectional.topEnd,
                       children: [
-                        Image.network(
-                          otherImageUrl[i],
+                        Image.file(
+                          File(otherPhotos[i]),
                           width: 100,
                           height: 100,
                         ),
@@ -5998,7 +6133,10 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
         request.fields[IsReturnable] = isReturnable.toString();
         request.fields['sub_category_id'] = selectedSubCategory.toString();
         request.fields[IsCancelable] = isCancelable.toString();
-        request.fields[ProInputImage] = productImage;
+        // request.fields[ProInputImage] = productImage;
+        if(ProInputImage!=null)
+        request.files.add(await http.MultipartFile.fromPath(
+            '${ProInputImage}',productImage  ?? ''));
         if (tillwhichstatus != null)
           request.fields[CancelableTill] = tillwhichstatus.toString();
         // for product Image ADD
@@ -6006,14 +6144,20 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
             ProInputImage, mainProductImage!.path);
         request.files.add(pic);*/
         // for Other Photos Add
-        if (otherPhotos.isNotEmpty) {
-          request.fields[OtherImages] = otherPhotos.join(",");
-          /*  for (var i = 0; i < otherPhotos.length; i++) {
-            var pics = await http.MultipartFile.fromPath(
-                OtherImages, otherPhotos[i].path);
-            request.files.add(pics);
-          }*/
-        }
+        // if (otherPhotos.isNotEmpty) {
+        //   request.fields[OtherImages] = otherPhotos.join(",");
+        //   /*  for (var i = 0; i < otherPhotos.length; i++) {
+        //     var pics = await http.MultipartFile.fromPath(
+        //         OtherImages, otherPhotos[i].path);
+        //     request.files.add(pics);
+        //   }*/
+        // }
+
+        otherPhotos.forEach((element) async {
+          request.files.add(await http.MultipartFile.fromPath(
+              'other_images[]',element  ?? ''));
+        });
+
         if (selectedTypeOfVideo != null)
           request.fields[VideoType] = selectedTypeOfVideo.toString();
         if (videoUrl != null) request.fields[Video] = videoUrl.toString();
@@ -6198,7 +6342,7 @@ class _AddProductState extends State<AddProduct> with TickerProviderStateMixin {
             indicatorField(),
             discount(),
             discountLimit(),
-            addHsn(),
+            // addHsn(),
             //totalAllowedQuantity(),
             // minimumOrderQuantity(),
             // _quantityStepSize(),
