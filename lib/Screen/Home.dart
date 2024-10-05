@@ -816,9 +816,20 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           //  if (chartList != null) chartList!.clear();
           chartList = {0: dayData(), 1: weekData(), 2: monthData()};
           //  catCountList = getdata['category_wise_product_count']['counter'];
-          catList = getdata['category_wise_product_count'] == []
-              ? []
-              : getdata['category_wise_product_count']['cat_name'];
+          try{
+            print('gdfgfdghfdsh${getdata}');
+            print('dgdfhfdhd${getdata['category_wise_product_count']}');
+            print(getdata['category_wise_product_count']['cat_name']);
+
+
+            catList = getdata['category_wise_product_count'] == []
+                ? []
+                : getdata['category_wise_product_count'] == [] ?   []  : getdata['category_wise_product_count']['cat_name'];
+          }catch(e)
+        {
+          catList=[];
+        }
+
           colorList.clear();
           for (int i = 0; i < catList!.length; i++)
             colorList.add(generateRandomColor());
@@ -858,6 +869,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           if (!error) {
             var data = getdata["data"][0];
             print(data);
+            print('dfgdfsgsdfgsg${double.parse(data[BALANCE]).toStringAsFixed(2)}');
             CUR_BALANCE = double.parse(data[BALANCE]).toStringAsFixed(2);
             LOGO = data["logo"].toString();
             RATTING = data[Rating] ?? "";
@@ -882,11 +894,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             var latitutute = data[Latitude];
             var longitude = data[Longitude];
             var taxname = data[taxName];
+            print('vdvdv${data[taxNumber]}');
             var tax_number = data[taxNumber];
             var pan_number = data[panNumber];
             var adhar_num = data[adharNo];
             var status = data[STATUS];
             var storeLogo = data[StoreLogo];
+            var fassiNumber = data['fassai_number'];
             onOf = data["online"] == "1" ? true : false;
 
             print("bank name : $bankName");
@@ -911,6 +925,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               pan_number.toString(),
               status.toString(),
               storeLogo.toString(),
+                fassiNumber!
             );
           }
           setState(() {
@@ -2048,7 +2063,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  today_pause_delivery ?? "",
+                  today_pause_delivery.toString() == 'null'  ?  '0'  :   today_pause_delivery.toString(),
+                  // today_pause_delivery ?? "",
                   style: TextStyle(
                     color: black,
                     fontWeight: FontWeight.bold,
@@ -2191,7 +2207,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  today_delivery.toString(),
+                  today_delivery.toString() == 'null'  ?  '0'  :   today_delivery.toString(),
                   style: TextStyle(
                     color: black,
                     fontWeight: FontWeight.bold,

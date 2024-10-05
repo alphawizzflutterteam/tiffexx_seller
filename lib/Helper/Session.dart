@@ -392,11 +392,12 @@ Future<void> saveUserDetail(
   String latitutute,
   String longitude,
   String taxname,
+  String adhar_num,//adhar_num
   String tax_number,
-  String adhar_num,
   String pan_number,
   String status,
   String storelogo,
+  String fassiNumber,
 ) async {
   final waitList = <Future<void>>[];
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -419,6 +420,7 @@ Future<void> saveUserDetail(
   waitList.add(prefs.setString(adharNo, adhar_num));
   waitList.add(prefs.setString(panNumber, pan_number));
   waitList.add(prefs.setString(StoreLogo, storelogo));
+  waitList.add(prefs.setString('fassai_number', fassiNumber));
   await Future.wait(waitList);
 }
 
