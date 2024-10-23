@@ -36,8 +36,8 @@ void main() async {
     sound: true,
   );
   FirebaseMessaging.onBackgroundMessage(myForgroundMessageHandler);
-  String? msg = await FirebaseMessaging.instance.getAPNSToken();
-  print('Token APNS : ${msg}');
+  // String? msg = await FirebaseMessaging.instance.getAPNSToken();
+  // print('Token APNS : ${msg}');
   runApp(MyApp());
 }
 

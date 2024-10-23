@@ -126,8 +126,8 @@ _getMainFromGallery() async {
   _getOrdersFromGallery() async {
     XFile? pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
-      maxWidth: 1800,
-      maxHeight: 1800,
+      maxWidth: 500,
+      maxHeight: 500,
     );
     if (pickedFile != null) {
       setState(() {
@@ -745,6 +745,7 @@ _getMainFromGallery() async {
                 right: 8,
               ),
               child: TextFormField(
+
                 onFieldSubmitted: (v) {
                   FocusScope.of(context).requestFocus(sortDescriptionFocus);
                 },
@@ -3605,14 +3606,14 @@ _getMainFromGallery() async {
   }
 
   uploadedOtherImageShow() {
-    return otherPhotos.isEmpty
+    return otherNewPhotos.isEmpty
         ? Container()
         : Container(
             width: double.infinity,
             height: 105,
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: otherPhotos.length,
+              itemCount: otherNewPhotos.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, i) {
                 return InkWell(
@@ -3622,7 +3623,7 @@ _getMainFromGallery() async {
                       alignment: AlignmentDirectional.topEnd,
                       children: [
                         Image.file(
-                          File(otherPhotos[i]),
+                          File(otherNewPhotos[i]),
                           width: 100,
                           height: 100,
                         ),
@@ -3640,7 +3641,7 @@ _getMainFromGallery() async {
                     if (mounted) {
                       setState(
                         () {
-                          otherPhotos.removeAt(i);
+                          otherNewPhotos.removeAt(i);
                         },
                       );
                     }
@@ -4041,23 +4042,23 @@ _getMainFromGallery() async {
                     getTranslated(context, "General Information")!,
                   ),
                 ),
-                TextButton(
-                  style: curSelPos == 1
-                      ? TextButton.styleFrom(
-                          foregroundColor: Colors.white, backgroundColor: primary, disabledForegroundColor: Colors.grey.withOpacity(0.38),
-                        )
-                      : null,
-                  onPressed: () {
-                    setState(
-                      () {
-                        curSelPos = 1;
-                      },
-                    );
-                  },
-                  child: Text(
-                    getTranslated(context, "Attributes")!,
-                  ),
-                ),
+                // TextButton(
+                //   style: curSelPos == 1
+                //       ? TextButton.styleFrom(
+                //           foregroundColor: Colors.white, backgroundColor: primary, disabledForegroundColor: Colors.grey.withOpacity(0.38),
+                //         )
+                //       : null,
+                //   onPressed: () {
+                //     setState(
+                //       () {
+                //         curSelPos = 1;
+                //       },
+                //     );
+                //   },
+                //   child: Text(
+                //     getTranslated(context, "Attributes")!,
+                //   ),
+                // ),
                 productType == 'variable_product'
                     ? TextButton(
                         style: curSelPos == 2
@@ -5751,44 +5752,44 @@ _getMainFromGallery() async {
                               ),
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              setState(
-                                () {
-                                  //----reset----
-                                  simpleProductPriceController.text = '';
-                                  simpleProductSpecialPriceController.text = '';
-                                  _isStockSelected = false;
-
-                                  //--------------set
-                                  variantProductVariableLevelSaveSettings =
-                                      false;
-                                  variantProductProductLevelSaveSettings =
-                                      false;
-                                  simpleProductSaveSettings = false;
-                                  productType = 'variable_product';
-                                  Navigator.of(context).pop();
-                                },
-                              );
-                            },
-                            child: Container(
-                              width: double.maxFinite,
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      getTranslated(
-                                          context, "Variable Product")!,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          // InkWell(
+                          //   onTap: () {
+                          //     setState(
+                          //       () {
+                          //         //----reset----
+                          //         simpleProductPriceController.text = '';
+                          //         simpleProductSpecialPriceController.text = '';
+                          //         _isStockSelected = false;
+                          //
+                          //         //--------------set
+                          //         variantProductVariableLevelSaveSettings =
+                          //             false;
+                          //         variantProductProductLevelSaveSettings =
+                          //             false;
+                          //         simpleProductSaveSettings = false;
+                          //         productType = 'variable_product';
+                          //         Navigator.of(context).pop();
+                          //       },
+                          //     );
+                          //   },
+                          //   child: Container(
+                          //     width: double.maxFinite,
+                          //     child: Padding(
+                          //       padding:
+                          //           EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          //       child: Row(
+                          //         mainAxisAlignment:
+                          //             MainAxisAlignment.spaceBetween,
+                          //         children: [
+                          //           Text(
+                          //             getTranslated(
+                          //                 context, "Variable Product")!,
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -6133,6 +6134,9 @@ _getMainFromGallery() async {
         request.fields[IsReturnable] = isReturnable.toString();
         request.fields['sub_category_id'] = selectedSubCategory.toString();
         request.fields[IsCancelable] = isCancelable.toString();
+        request.fields['total_allowed_quantity'] = '1000';
+        request.fields['minimum_order_quantity'] = '1';
+        request.fields['quantity_step_size'] = '1';
         // request.fields[ProInputImage] = productImage;
         if(ProInputImage!=null)
         request.files.add(await http.MultipartFile.fromPath(
@@ -6153,7 +6157,7 @@ _getMainFromGallery() async {
         //   }*/
         // }
 
-        otherPhotos.forEach((element) async {
+        otherNewPhotos.forEach((element) async {
           request.files.add(await http.MultipartFile.fromPath(
               'other_images[]',element  ?? ''));
         });
@@ -6340,8 +6344,8 @@ _getMainFromGallery() async {
             //  tagsAdd(),
             // taxSelection(),
             indicatorField(),
-            discount(),
-            discountLimit(),
+            // discount(),
+            // discountLimit(),
             // addHsn(),
             //totalAllowedQuantity(),
             // minimumOrderQuantity(),
@@ -6407,154 +6411,154 @@ _getMainFromGallery() async {
 
             /// add on feature /////
 
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all()),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Product Add on",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    child: TextFormField(
-                      controller: addonNameController,
-                      decoration: InputDecoration(
-                          hintText: "Product Name",
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(),
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      controller: addonPriceController,
-                      decoration: InputDecoration(
-                          hintText: "Product Price",
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(),
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  addonImage == null
-                      ? MaterialButton(
-                          onPressed: () async {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text("Select Image option"),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        InkWell(
-                                            onTap: () {
-                                              _getFromCamera();
-                                            },
-                                            child: Text(
-                                              "Click Image from Camera",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w500),
-                                            )),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        InkWell(
-                                            onTap: () {
-                                              _getFromGallery();
-                                            },
-                                            child: Text(
-                                              "Upload Image from Gallery",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w500),
-                                            ))
-                                      ],
-                                    ),
-                                  );
-                                });
-                          },
-                          child: Text(
-                            "Add Image",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          color: primary,
-                        )
-                      : Container(
-                          height: 50,
-                          width: 60,
-                          child: Image.file(
-                            addonImage!,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                  Align(
-                      alignment: Alignment.center,
-                      child: MaterialButton(
-                        onPressed: () {
-                          if (addonPriceController.text.isEmpty &&
-                              addonPriceController.text.isEmpty &&
-                              addonImage == null) {
-                            var snackBar = SnackBar(
-                              content: Text('Enter all details'),
-                            );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          } else {
-                            setState(() {
-                              addonList.add({
-                                "add_name": addonNameController.text,
-                                "add_price": addonPriceController.text,
-                                "addon_images": addonImage!.path.toString(),
-                              });
-                              addonNameList.add(addonNameController.text);
-                              addonPriceList.add(addonPriceController.text);
-                              addonImageList.add(addonImage!.path.toString());
-                              addonNameController.clear();
-                              addonPriceController.clear();
-                              addonImage = null;
-                              print(
-                                  "checking addon list here ${addonNameList} and ${addonPriceList} and ${addonImageList}");
-                            });
-                          }
-                        },
-                        child: Text(
-                          "Add Addon Product",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-                        ),
-                        color: primary,
-                        minWidth: MediaQuery.of(context).size.width / 2,
-                      ))
-                ],
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+            //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            //   decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(10),
+            //       border: Border.all()),
+            //   width: MediaQuery.of(context).size.width,
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         "Product Add on",
+            //         style: TextStyle(
+            //             color: Colors.black,
+            //             fontWeight: FontWeight.w500,
+            //             fontSize: 15),
+            //       ),
+            //       SizedBox(
+            //         height: 10,
+            //       ),
+            //       Container(
+            //         child: TextFormField(
+            //           controller: addonNameController,
+            //           decoration: InputDecoration(
+            //               hintText: "Product Name",
+            //               border: OutlineInputBorder(
+            //                   borderSide: BorderSide(),
+            //                   borderRadius: BorderRadius.circular(10))),
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         height: 10,
+            //       ),
+            //       Container(
+            //         child: TextFormField(
+            //           keyboardType: TextInputType.number,
+            //           controller: addonPriceController,
+            //           decoration: InputDecoration(
+            //               hintText: "Product Price",
+            //               border: OutlineInputBorder(
+            //                   borderSide: BorderSide(),
+            //                   borderRadius: BorderRadius.circular(10))),
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         height: 6,
+            //       ),
+            //       addonImage == null
+            //           ? MaterialButton(
+            //               onPressed: () async {
+            //                 showDialog(
+            //                     context: context,
+            //                     builder: (context) {
+            //                       return AlertDialog(
+            //                         title: Text("Select Image option"),
+            //                         content: Column(
+            //                           mainAxisSize: MainAxisSize.min,
+            //                           crossAxisAlignment:
+            //                               CrossAxisAlignment.start,
+            //                           children: [
+            //                             InkWell(
+            //                                 onTap: () {
+            //                                   _getFromCamera();
+            //                                 },
+            //                                 child: Text(
+            //                                   "Click Image from Camera",
+            //                                   style: TextStyle(
+            //                                       color: Colors.black,
+            //                                       fontWeight: FontWeight.w500),
+            //                                 )),
+            //                             SizedBox(
+            //                               height: 10,
+            //                             ),
+            //                             InkWell(
+            //                                 onTap: () {
+            //                                   _getFromGallery();
+            //                                 },
+            //                                 child: Text(
+            //                                   "Upload Image from Gallery",
+            //                                   style: TextStyle(
+            //                                       color: Colors.black,
+            //                                       fontWeight: FontWeight.w500),
+            //                                 ))
+            //                           ],
+            //                         ),
+            //                       );
+            //                     });
+            //               },
+            //               child: Text(
+            //                 "Add Image",
+            //                 style: TextStyle(
+            //                     color: Colors.white,
+            //                     fontSize: 15,
+            //                     fontWeight: FontWeight.w500),
+            //               ),
+            //               color: primary,
+            //             )
+            //           : Container(
+            //               height: 50,
+            //               width: 60,
+            //               child: Image.file(
+            //                 addonImage!,
+            //                 fit: BoxFit.fill,
+            //               ),
+            //             ),
+            //       Align(
+            //           alignment: Alignment.center,
+            //           child: MaterialButton(
+            //             onPressed: () {
+            //               if (addonPriceController.text.isEmpty &&
+            //                   addonPriceController.text.isEmpty &&
+            //                   addonImage == null) {
+            //                 var snackBar = SnackBar(
+            //                   content: Text('Enter all details'),
+            //                 );
+            //                 ScaffoldMessenger.of(context)
+            //                     .showSnackBar(snackBar);
+            //               } else {
+            //                 setState(() {
+            //                   addonList.add({
+            //                     "add_name": addonNameController.text,
+            //                     "add_price": addonPriceController.text,
+            //                     "addon_images": addonImage!.path.toString(),
+            //                   });
+            //                   addonNameList.add(addonNameController.text);
+            //                   addonPriceList.add(addonPriceController.text);
+            //                   addonImageList.add(addonImage!.path.toString());
+            //                   addonNameController.clear();
+            //                   addonPriceController.clear();
+            //                   addonImage = null;
+            //                   print(
+            //                       "checking addon list here ${addonNameList} and ${addonPriceList} and ${addonImageList}");
+            //                 });
+            //               }
+            //             },
+            //             child: Text(
+            //               "Add Addon Product",
+            //               style: TextStyle(
+            //                   color: Colors.white,
+            //                   fontWeight: FontWeight.w500,
+            //                   fontSize: 15),
+            //             ),
+            //             color: primary,
+            //             minWidth: MediaQuery.of(context).size.width / 2,
+            //           ))
+            //     ],
+            //   ),
+            // ),
 
             addonList == null || addonList.length == 0
                 ? SizedBox.shrink()

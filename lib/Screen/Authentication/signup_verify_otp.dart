@@ -198,7 +198,7 @@ class _MobileOTPState extends State<SignUpVerifyOtp1> with TickerProviderStateMi
       'lang2':widget.long2,
       'restaurant_description': widget.restaurantDescription,
       'restaurant_address': widget.restaurantAddress,
-      'restaurant_type': widget.restaurantType,
+      'restaurant_type': widget.restaurantType=='Veg' ?  '1'  :    widget.restaurantType=='Non-Veg' ?  '2':  '3',
       'account_no': widget.accountNumberController,
       'confirm_account_no': widget.confirmAccountNumberController,
       'account_holder_name': widget.accountNameController,

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tiffexx_seller/Model/ProductModel/Product.dart';
 import 'package:tiffexx_seller/Screen/addonEdit.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -3879,44 +3880,47 @@ class _EditProductState extends State<EditProduct>
         itemCount: otherPhotos.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, i) {
-          return InkWell(
-            child: Stack(
-              alignment: AlignmentDirectional.topEnd,
-              children: [
-                // ortherImageType == true ?         Image.file(
-                //   File(otherPhotos[i]),
-                //   width: 100,
-                //   height: 100,
-                // )  :
-                Image.network(
-                  otherPhotos[i],
-                  width: 100,
-                  height: 100,
-                ) ,
-                Container(
-                  color: Colors.black26,
-                  child: const Icon(
-                    Icons.clear,
-                    size: 15,
-                  ),
-                )
-              ],
+          return Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: InkWell(
+              child: Stack(
+                alignment: AlignmentDirectional.topEnd,
+                children: [
+                  // ortherImageType == true ?         Image.file(
+                  //   File(otherPhotos[i]),
+                  //   width: 100,
+                  //   height: 100,
+                  // )  :
+                  Image.network(
+                    otherPhotos[i],
+                    width: 100,
+                    height: 100,
+                  ) ,
+                  Container(
+                    color: Colors.black26,
+                    child: const Icon(
+                      Icons.clear,
+                      size: 15,
+                    ),
+                  )
+                ],
+              ),
+              onTap: () {
+                if (mounted) {
+                  setState(
+                        () {
+                          // mainImageType=true;
+                          // otherPhotos.clear();
+                          // otherImageUrl.clear();
+                      otherPhotos.removeAt(i);
+                      otherImageUrl.removeAt(i);
+
+
+                    },
+                  );
+                }
+              },
             ),
-            onTap: () {
-              if (mounted) {
-                setState(
-                      () {
-                        // mainImageType=true;
-                        // otherPhotos.clear();
-                        // otherImageUrl.clear();
-                    otherPhotos.removeAt(i);
-                    otherImageUrl.removeAt(i);
-
-
-                  },
-                );
-              }
-            },
           );
         },
       ),
@@ -4438,9 +4442,9 @@ class _EditProductState extends State<EditProduct>
                       productType == 'simple_product'
                           ? simpleProductPrice()
                           : Container(),
-                      productType == 'simple_product'
-                          ? simpleProductSpecialPrice()
-                          : Container(),
+                      // productType == 'simple_product'
+                      //     ? simpleProductSpecialPrice()
+                      //     : Container(),
 
                       // CheckboxListTile(
                       //   title: Text(
@@ -6098,44 +6102,44 @@ class _EditProductState extends State<EditProduct>
                               ),
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              setState(
-                                () {
-                                  //----reset----
-                                  simpleProductPriceController.text = '';
-                                  simpleProductSpecialPriceController.text = '';
-                                  _isStockSelected = false;
-
-                                  //--------------set
-                                  variantProductVariableLevelSaveSettings =
-                                      false;
-                                  variantProductProductLevelSaveSettings =
-                                      false;
-                                  simpleProductSaveSettings = false;
-                                  productType = 'variable_product';
-                                  Navigator.of(context).pop();
-                                },
-                              );
-                            },
-                            child: Container(
-                              width: double.maxFinite,
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      getTranslated(
-                                          context, "Variable Product")!,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          // InkWell(
+                          //   onTap: () {
+                          //     setState(
+                          //       () {
+                          //         //----reset----
+                          //         simpleProductPriceController.text = '';
+                          //         simpleProductSpecialPriceController.text = '';
+                          //         _isStockSelected = false;
+                          //
+                          //         //--------------set
+                          //         variantProductVariableLevelSaveSettings =
+                          //             false;
+                          //         variantProductProductLevelSaveSettings =
+                          //             false;
+                          //         simpleProductSaveSettings = false;
+                          //         productType = 'variable_product';
+                          //         Navigator.of(context).pop();
+                          //       },
+                          //     );
+                          //   },
+                          //   child: Container(
+                          //     width: double.maxFinite,
+                          //     child: Padding(
+                          //       padding:
+                          //           EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          //       child: Row(
+                          //         mainAxisAlignment:
+                          //             MainAxisAlignment.spaceBetween,
+                          //         children: [
+                          //           Text(
+                          //             getTranslated(
+                          //                 context, "Variable Product")!,
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -6682,8 +6686,8 @@ class _EditProductState extends State<EditProduct>
             //   tagsAdd(),
             //  taxSelection(),
             indicatorField(),
-            discount1(),
-            discountLimit(),
+            // discount1(),
+            // discountLimit(),
             // hsnCode(),
             // totalAllowedQuantity(),
             //minimumOrderQuantity(),
@@ -6978,13 +6982,20 @@ class _EditProductState extends State<EditProduct>
               btnAnim: buttonSqueezeanimation,
               btnCntrl: buttonController,
               onBtnSelected: () async {
-                if (_dateValue == "" || _dateValue == null) {
-                  //setSnackbar("Please select discount date");
-                  _dateValue = convertDateTimeDisplay(DateTime.now().toString());
-                  validateAndSubmit();
-                } else {
-                  validateAndSubmit();
+                if( productType == 'simple_product')
+                  {
+                    if (_dateValue == "" || _dateValue == null) {
+                      //setSnackbar("Please select discount date");
+                      _dateValue = convertDateTimeDisplay(DateTime.now().toString());
+                      validateAndSubmit();
+                    } else {
+                      validateAndSubmit();
+                    }
+                  }
+                else{
+                  Fluttertoast.showToast(msg: 'Please Update Varient Product From Seller Panel');
                 }
+
               },
             ),
             //resetProButton(),

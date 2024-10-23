@@ -67,7 +67,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
       tax_number,
       pan_number,
       status,
-      storeLogo;
+      storeLogo,fassiNumber;
   bool _isNetworkAvail = true;
   var fcmToken = "";
 
@@ -106,11 +106,15 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   }
 
   geFcmToken() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-    setState(() {
-      fcmToken = token!;
-      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>$fcmToken");
-    });
+    try{
+      String? token = await FirebaseMessaging.instance.getToken();
+      setState(() {
+        fcmToken = token!;
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>$fcmToken");
+      });
+    }catch(e)
+    {}
+
   }
 
 //==============================================================================
@@ -292,6 +296,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           pan_number = data[panNumber] ?? "";
           status = data[STATUS] ?? "";
           storeLogo = data[StoreLogo] ?? "";
+          fassiNumber=data['fassai_number'] ?? "";
 
           saveUserDetail(
             id!,
@@ -314,6 +319,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             adharNo,
             status!,
             storeLogo!,
+              fassiNumber!
+
           );
           setPrefrenceBool(isLogin, true);
           Navigator.pushReplacement(

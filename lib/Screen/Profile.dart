@@ -248,7 +248,7 @@ class StateProfile extends State<Profile> with TickerProviderStateMixin {
     taxnumber = await getPrefrence(taxNumber);
     pannumber = await getPrefrence(panNumber);
     status = await getPrefrence(STATUS);
-    userfassai = await getPrefrence('fassai_number');
+    // userfassai = await getPrefrence('fassai_number');
     adharNumber= await getPrefrence(adharNo);
 
     storelogo = await getPrefrence(StoreLogo);
@@ -509,8 +509,9 @@ class StateProfile extends State<Profile> with TickerProviderStateMixin {
       final jsonResponse = json.decode(finalResult);
       newAddressProof = jsonResponse['data'][0]['address_proof'];
       prefs.setString('address_proof', newAddressProof.toString());
-      prefs.setString(
-          'fassaiNumber', jsonResponse['data'][0]['fassai_number'].toString());
+      userfassai=jsonResponse['data'][0]['fassai_number'].toString();
+      // prefs.setString(
+      //     'fassaiNumber', jsonResponse['data'][0]['fassai_number'].toString());
       newAdhar = jsonResponse['data'][0]['adhar_no'];
       prefs.setString('adhar_no', jsonResponse['data'][0]['adhar_no'].toString());
       print('_____newAdharnewAdharnewAdharnewAdhar______${newAdhar}__________');
@@ -2694,7 +2695,7 @@ final picker =  ImagePicker();
                   style: Theme.of(this.context).textTheme.caption!.copyWith(
                       color: lightBlack2, fontWeight: FontWeight.normal),
                 ),
-                userfassai != "" && userfassai != null && userfassai != "null"
+                userfassai != null
                     ? Text(
                         userfassai!,
                         style: Theme.of(this.context)
