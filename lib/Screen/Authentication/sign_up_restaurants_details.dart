@@ -274,10 +274,12 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           validator: (value) {
-                            if (value != null && value.isNotEmpty) {
-                              if (value.length != 14) {
-                                return 'Enter valid FSSAI no. (14 digits)';
+                            if(value == null || value.isEmpty)
+                              {
+                                return 'Enter FSSAI no.';
                               }
+                              else if (value.length != 14) {
+                                return 'Enter valid FSSAI no. (14 digits)';
                             }
                             return null;
                           },
@@ -530,11 +532,12 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           top: 30.0,
                         ),
                         child: TextFormField(
+                          textCapitalization: TextCapitalization.characters,
                           maxLength: 10,
                           // onFieldSubmitted: (v) {
                           //   FocusScope.of(context).requestFocus(passFocus);
                           // },
-                          // keyboardType: TextInputType.,
+                          // keyboardType: TextInputType.n,
                           controller: panNumberController,
                           style: TextStyle(
                             color: fontColor,
@@ -543,21 +546,29 @@ class _SignUpRestaurantsDetailsState extends State<SignUpRestaurantsDetails> wit
                           // focusNode: monoFocus,
                           textInputAction: TextInputAction.next,
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          validator: (value) {
-                            if (value != null && value.isNotEmpty) {
-                              if (value.length != 10) {
-                                return 'Enter valid Pan no. (10 digits)';
-                              }
-                            }
-                            return null;
-                          },
-                          // validator: (value){
-                          //   if (value!.isEmpty) {
-                          //     return  'Pan No. is required';/*getTranslated(context, "MOB_REQUIRED")!;*/
+                          // validator: (value) {
+                          //   if (value != null && value.isNotEmpty) {
+                          //     if (value.length != 10) {
+                          //       return 'Enter valid Pan no. (10 digits)';
+                          //     }
                           //   }
-                          //
                           //   return null;
                           // },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return  'Pan No. is required';
+                              }
+                              else if (value.length != 10) {
+                                return  'Enter valid Pan no. (10 digits)';
+                              }
+                              // Check if it contains at least one letter and one number
+                              else if (!RegExp(r'^[A-Z]{5}[0-9]{4}[A-Z]{1}$').hasMatch(value)) {
+                                return 'Enter valid Pan no. (e.g. ABCDE1234F)';
+                              }
+
+                              return null;
+                            },
+
                           // onSaved: (String? value) {
                           //   mobile = value;
                           // },
