@@ -67,7 +67,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
       tax_number,
       pan_number,
       status,
-      storeLogo,fassiNumber;
+      storeLogo,fassiNumber,adhar;
   bool _isNetworkAvail = true;
   var fcmToken = "";
 
@@ -268,6 +268,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           Fluttertoast.showToast(msg: msg ?? '',backgroundColor: Colors.green,textColor: Colors.white);
           //setSnackbar(msg!);
           var data = getdata["data"][0];
+          var data1 = getdata["data"][1];
           id = data[Id];
           username = data[Username];
           email = data[Email];
@@ -293,7 +294,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           longitude = data[Longitude] ?? "";
           taxname = data[taxName] ?? "";
           tax_number = data[taxNumber] ?? "";
-          pan_number = data[panNumber] ?? "";
+          pan_number = data1['pan_number'] ?? "";
+          adhar = data1['adhar_no'] ?? "";
           status = data[STATUS] ?? "";
           storeLogo = data[StoreLogo] ?? "";
           fassiNumber=data['fassai_number'] ?? "";
@@ -314,9 +316,9 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             latitutute ?? "",
             longitude ?? "",
             taxname ?? "",
+              adhar ?? '',
             tax_number!,
             pan_number!,
-            adharNo,
             status!,
             storeLogo!,
               fassiNumber!

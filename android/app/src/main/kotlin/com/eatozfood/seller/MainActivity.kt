@@ -1,4 +1,4 @@
-package com.tiffexx.seller
+package com.tiffexx.restaurant
 
 import android.content.ContentResolver
 import android.content.Context

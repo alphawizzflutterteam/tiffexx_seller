@@ -405,7 +405,7 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
                 _detailHeader(),
                 _detailHeader2(),
                 _filterRow(),
-                orderList.length == 0
+                isLoading ?  Center(child: CircularProgressIndicator())  :    orderList.length == 0
                     ? Center(
                   child: Padding(
                     padding: EdgeInsets.only(top: 20),
@@ -1020,18 +1020,50 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
               )
                   : model.itemList![0].activeStatus == "cancelled"
                   ? MaterialButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrderDetail(
+                        model: orderList[index],
+                        id: model.id,
+                      ),
+                    ),
+                  );
+                  //}
+                  setState(
+                        () {
+                      getOrder();
+                    },
+                  );
+                },
                 child: Text(
                   "Rejected",
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w500),
                 ),
-                color: primary,
+                color: grad2Color,
                 minWidth: MediaQuery.of(context).size.width,
               )
                   : MaterialButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrderDetail(
+                        model: orderList[index],
+                        id: model.id,
+                      ),
+                    ),
+                  );
+                  //}
+                  setState(
+                        () {
+                      getOrder();
+                    },
+                  );
+                },
                 child: Text(
                   "Accepted",
                   style: TextStyle(
@@ -1104,8 +1136,12 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
       await buttonController!.forward();
     } on TickerCanceled {}
   }
-
+bool isLoading=false;
   Future<Null> getOrder() async {
+    isLoading=true;
+    setState(() {
+
+    });
     print("ok new order here");
     if (readOrder) {
       print("read order here");
@@ -1172,13 +1208,16 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
                   scrollOffset = scrollOffset + perPage;
                   print("ooooooooooooo1 ${orderList.length}");
                 } else {
+                  isLoading=false;
                   scrollLoadmore = false;
                 }
               } else {
+                isLoading=false;
                 scrollLoadmore = false;
               }
               if (mounted)
                 setState(() {
+                  isLoading=false;
                   scrollLoadmore = false;
                 });
             },
@@ -1186,19 +1225,24 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
               // setSnackbar(error.toString());
             },
           );
+
         }
+
       } else {
         if (mounted)
           setState(
                 () {
+                  isLoading=false;
               _isNetworkAvail = false;
               scrollLoadmore = false;
             },
           );
+
       }
       return null;
     } else {
       setSnackbar('You have not authorized permission for read order!!');
+
     }
   }
 
@@ -1334,7 +1378,7 @@ class _OrderListState extends State<OrderList> with TickerProviderStateMixin {
                 foregroundColor: Colors.white, backgroundColor: primary, disabledForegroundColor: Colors.grey.withOpacity(0.38), disabledBackgroundColor: Colors.grey.withOpacity(0.12),
               ),
             )),
-        Expanded(
+        start == null || end == null  ?  SizedBox() :    Expanded(
           child: Container(
             margin: EdgeInsets.all(10),
             height: 45,

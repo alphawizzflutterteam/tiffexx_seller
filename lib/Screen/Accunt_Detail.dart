@@ -13,8 +13,13 @@ class AccountDetail extends StatefulWidget {
 
 class _AccountDetailState extends State<AccountDetail> {
   var sellerData;
-
+bool isLoading=false;
   getSellerDetail() async {
+     isLoading=true;
+    setState(() {
+
+    });
+
     var headers = {
       'Cookie': 'ci_session=624212ee9cda04abc249424f5061827c593f795b'
     };
@@ -23,14 +28,23 @@ class _AccountDetailState extends State<AccountDetail> {
     request.fields.addAll({'id': '${CUR_USERID}'});
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
+
     if (response.statusCode == 200) {
       var finalResult = await response.stream.bytesToString();
       final jsonResponse = json.decode(finalResult);
-      setState(() {
+
         sellerData = jsonResponse['data'][0];
+
+      isLoading=false;
+      setState(() {
+
       });
     } else {
       print(response.reasonPhrase);
+      isLoading=false;
+      setState(() {
+
+      });
     }
   }
 
@@ -49,28 +63,18 @@ class _AccountDetailState extends State<AccountDetail> {
       backgroundColor: Color(0xffF5F5F5),
       appBar: getAppBar("Bank Detail", context),
       body: sellerData == null
-          ? Container()
+          ? Center(child: CircularProgressIndicator())
           : Container(
               color: Colors.white,
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text(
-                      "Account Number",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    subtitle: sellerData['account_numbers'] == null
-                        ? Text("Not Added yet")
-                        : Text("${sellerData['account_numbers']}"),
-                  ),
-                  Divider(),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(
-                      "Account Name",
+                      "Account Holder Name",
                       style: TextStyle(color: Colors.black),
                     ),
                     subtitle: sellerData['account_names'] == null
@@ -81,12 +85,24 @@ class _AccountDetailState extends State<AccountDetail> {
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text(
-                      "Bank Code",
+                      "Account Number",
                       style: TextStyle(color: Colors.black),
                     ),
-                    subtitle: sellerData['bank_code'] == null
+                    subtitle: sellerData['account_numbers'] == null
                         ? Text("Not Added yet")
-                        : Text("${sellerData['bank_code']}"),
+                        : Text("${sellerData['account_numbers']}"),
+                  ),
+
+                  Divider(),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(
+                      "Ifsc Code",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    subtitle: sellerData['ifsc_code'] == null
+                        ? Text("Not Added yet")
+                        : Text("${sellerData['ifsc_code']}"),
                   ),
                   Divider(),
                   ListTile(
@@ -98,6 +114,16 @@ class _AccountDetailState extends State<AccountDetail> {
                     subtitle: sellerData['bank_name'] == null
                         ? Text("Not Added yet")
                         : Text("${sellerData['bank_name']}"),
+                  ),         Divider(),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(
+                      "Account Type",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    subtitle: sellerData['account_type'] == null
+                        ? Text("Not Added yet")
+                        : Text("${sellerData['account_type']}"),
                   ),
                 ],
               ),

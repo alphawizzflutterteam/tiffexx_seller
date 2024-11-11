@@ -23,7 +23,7 @@ class UserPlanDetailScreen extends StatelessWidget {
       // for(int i = 0; i < data.orders.length ; i++){
       //   if(isSameDate(dateTime,DateTime.parse(data.orders[i].date.toString()))){
       //     return data.orders[i].status.toString();
-      //   }
+      //   }-
       // }
       return "0";
   }
@@ -81,40 +81,42 @@ class UserPlanDetailScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 8),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                data.username.toString(),
-                                style: TextStyle(
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  data.username.toString(),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  data.mobile.toString(),
+                                  style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                data.mobile.toString(),
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                data.email.toString(),
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
+                                Text(
+                                  data.email.toString(),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                data.transactionId.toString(),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
+                                Text(
+                                  data.transactionId.toString(),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
