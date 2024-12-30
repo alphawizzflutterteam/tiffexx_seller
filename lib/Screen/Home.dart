@@ -157,11 +157,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     offset = 0;
     total = 0;
     chartList = {0: dayData(), 1: weekData(), 2: monthData()};
-
+    getSallerDetail();
     orderList.clear();
     getSaveDetail();
     getStatics();
-    getSallerDetail();
+
     //  getDeliveryBoy();
     getZipCodes();
     getCategories();
@@ -213,7 +213,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
     super.initState();
 
-    timer = Timer.periodic(Duration(seconds: 60), (Timer t) => _refresh());
+    timer = Timer.periodic(Duration(seconds: 20), (Timer t) => _refresh());
   }
 
   var finalProductCount;
@@ -289,18 +289,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
-      accountDeleteApi();
+
       //print(await response.stream.bytesToString());
     } else {
       print(response.reasonPhrase);
     }
   }
+
   accountDeleteApi() async {
     var headers = {
       'Cookie': 'ci_session=8e256c265c2f540decd230089d884e19dd60626b'
     };
     var request =
-    http.MultipartRequest('POST', Uri.parse('$baseUrl/delete_account'));
+        http.MultipartRequest('POST', Uri.parse('$baseUrl/delete_account'));
     request.fields.addAll({'user_id': '${CUR_USERID}'});
     print('___________${request.fields}__________');
     request.headers.addAll(headers);
@@ -885,70 +886,82 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         (getdata) async {
           bool error = getdata["error"];
           String? msg = getdata["message"];
+          print('dasdsafs---${error}');
+          print('dasdsafs---11111${getdata["data"]}');
+          print('dasdsafs---11111${getdata["data"].length == 0}');
 
-          if (!error) {
-            var data = getdata["data"][0];
-            var data1 = getdata["data"][1];
-            print(data);
-            print(
-                'dfgdfsgsdfgsg${double.parse(data[BALANCE]).toStringAsFixed(2)}');
-            CUR_BALANCE = double.parse(data[BALANCE]).toStringAsFixed(2);
-            LOGO = data["logo"].toString();
-            RATTING = data[Rating] ?? "";
-            NO_OFF_RATTING = data[NoOfRatings] ?? "";
-            NO_OFF_RATTING = data[NoOfRatings] ?? "";
-            var id = data[Id];
-            today_pause_delivery = data['today_pause_delivery'];
-            today_delivery = data['today_delivery'];
-            var username = data[Username];
-            var email = data[Email];
-            var mobile = data[Mobile];
-            var address = data[Address];
-            CUR_USERID = id!;
-            CUR_USERNAME = username!;
-            var srorename = data[Storename];
-            var storeurl = data[Storeurl];
-            var storeDesc = data[storeDescription];
-            var accNo = data[accountNumber];
-            var accname = data[accountName];
-            var bankCode = data[BankCOde];
-            var bankName = data[bankNAme];
-            var latitutute = data[Latitude];
-            var longitude = data[Longitude];
-            var taxname = data[taxName];
-            print('vdvdv${data[taxNumber]}');
-            var tax_number = data[taxNumber];
-            var pan_number = data1['pan_number'];
-            var adhar_num = data[adharNo];
-            var status = data[STATUS];
-            var storeLogo = data[StoreLogo];
-            var fassiNumber = data['fassai_number'];
-            onOf = data["online"] == "1" ? true : false;
+          if (getdata["data"].length == 0) {
+            clearUserSession();
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => Login()),
+                    (Route<dynamic> route) => false);
+          } else {
+            if (!error) {
+              var data = getdata["data"][0];
+              // var data1 = getdata["data"][1];
+              print(data);
+              print(
+                  'dfgdfsgsdfgsg${double.parse(data[BALANCE]).toStringAsFixed(2)}');
+              CUR_BALANCE = double.parse(data[BALANCE]).toStringAsFixed(2);
+              LOGO = data["logo"].toString();
+              RATTING = data[Rating] ?? "";
+              NO_OFF_RATTING = data[NoOfRatings] ?? "";
+              NO_OFF_RATTING = data[NoOfRatings] ?? "";
+              var id = data[Id];
+              today_pause_delivery = data['today_pause_delivery'];
+              today_delivery = data['today_delivery'];
+              var username = data[Username];
+              var email = data[Email];
+              var mobile = data[Mobile];
+              var address = data[Address];
+              CUR_USERID = id!;
+              CUR_USERNAME = username!;
+              var srorename = data[Storename];
+              var storeurl = data[Storeurl];
+              var storeDesc = data[storeDescription];
+              var accNo = data[accountNumber];
+              var accname = data[accountName];
+              var bankCode = data[BankCOde];
+              var bankName = data[bankNAme];
+              var latitutute = data[Latitude];
+              var longitude = data[Longitude];
+              var taxname = data[taxName];
+              print('vdvdv${data[taxNumber]}');
+              var tax_number = data[taxNumber];
+              var pan_number = data['pan_number'];
+              var adhar_num = data[adharNo];
+              var status = data[STATUS];
+              var storeLogo = data[StoreLogo];
+              var fassiNumber = data['fassai_number'];
+              print('safasdsafds--${data["online"]}');
+              onOf = data["online"] == "1" ? true : false;
 
-            print("bank name : $bankName");
-            saveUserDetail(
-                id.toString(),
-                username.toString(),
-                email.toString(),
-                mobile.toString(),
-                address.toString(),
-                srorename.toString(),
-                storeurl.toString(),
-                storeDesc!.toString(),
-                accNo.toString(),
-                accname.toString(),
-                bankCode ?? "",
-                bankName ?? "",
-                latitutute ?? "",
-                longitude ?? "",
-                taxname ?? "",
-                adhar_num.toString(),
-                tax_number.toString(),
-                pan_number.toString(),
-                status.toString(),
-                storeLogo.toString(),
-                fassiNumber!);
+              print("bank name : $bankName");
+              saveUserDetail(
+                  id.toString(),
+                  username.toString(),
+                  email.toString(),
+                  mobile.toString(),
+                  address.toString(),
+                  srorename.toString(),
+                  storeurl.toString(),
+                  storeDesc!.toString(),
+                  accNo.toString(),
+                  accname.toString(),
+                  bankCode ?? "",
+                  bankName ?? "",
+                  latitutute ?? "",
+                  longitude ?? "",
+                  taxname ?? "",
+                  adhar_num.toString(),
+                  tax_number.toString(),
+                  pan_number.toString(),
+                  status.toString(),
+                  storeLogo.toString(),
+                  fassiNumber!);
+            }
           }
+
           setState(() {
             _isLoading = false;
           });
@@ -992,13 +1005,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     };
     var request =
         http.MultipartRequest('POST', Uri.parse('${baseUrl}update_online'));
-    request.fields.addAll(
-        {'id': '${CUR_USERID}}', 'open_close_status': onOf ? '1' : '0'});
+    request.fields
+        .addAll({'id': '${CUR_USERID}', 'open_close_status': onOf ? '1' : '0'});
     request.headers.addAll(headers);
+    print(request.fields);
+    print(request.url);
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       var finalResult = await response.stream.bytesToString();
       final jsonResult = json.decode(finalResult);
+      print(jsonResult);
       setState(() {});
     } else {
       print(response.reasonPhrase);
@@ -1178,7 +1194,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             .copyWith(color: white),
                       )
                     ],
-                  ),                  Row(
+                  ),
+                  Row(
                     children: [
                       Text(
                         "Rating: ",
@@ -1197,7 +1214,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       )
                     ],
                   ),
-
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 7,
@@ -1207,10 +1223,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       children: [
                         Text(
                           getTranslated(context, "EDIT_PROFILE_LBL")!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .caption!
-                              .copyWith(color: white,fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.caption!.copyWith(
+                              color: white, fontWeight: FontWeight.bold),
                         ),
                         Icon(
                           Icons.arrow_right_outlined,
@@ -1748,9 +1762,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     style: Theme.of(this.context).textTheme.subtitle2!.copyWith(
                         color: fontColor, fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () {
-
-                    logoutApi();
+                  onPressed: () async {
+                await    logoutApi();
+                accountDeleteApi();
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context) => Login()),
                         (Route<dynamic> route) => false);

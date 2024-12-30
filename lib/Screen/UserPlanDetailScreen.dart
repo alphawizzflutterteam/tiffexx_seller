@@ -333,7 +333,21 @@ class UserPlanDetailScreen extends StatelessWidget {
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ],
-                          )
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 12,
+                                width: 12,
+                                color: Colors.cyanAccent,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'Low Balance',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                       Column(
@@ -443,6 +457,7 @@ class UserPlanDetailScreen extends StatelessWidget {
                         }
                       },
                       todayBuilder: (context, date, _) {
+                        print('dadasdadad${getStatus(date)}');
                         switch (getStatus(date)) {
                           case '1':
                             return OrderStatus(
@@ -482,11 +497,17 @@ class UserPlanDetailScreen extends StatelessWidget {
                                 date: date,
                                 color: Colors.pinkAccent,
                                 title: 'Pause');
+                          case '9':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.cyanAccent,
+                                title: 'Low Balance');
                           default:
                             return null;
                         }
                       },
                       defaultBuilder: (context, date, _) {
+                        print('dadasdadad${getStatus(date)}');
                         switch (getStatus(date)) {
                           case '1':
                             return OrderStatus(
@@ -526,6 +547,11 @@ class UserPlanDetailScreen extends StatelessWidget {
                                 date: date,
                                 color: Colors.pinkAccent,
                                 title: 'Pause');
+                          case '9':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.cyanAccent,
+                                title: 'Low Balance');
                           default:
                             return null;
                         }
