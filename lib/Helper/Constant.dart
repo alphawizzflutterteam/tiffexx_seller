@@ -1,8 +1,8 @@
 final String appName = 'Tiffexx Restaurant';
 
-final String packageName = 'com.tiffexx.seller';
+final String packageName = 'com.tiffexx.restaurant';
 
-final String iosPackage = 'com.tiffexx.seller';
+final String iosPackage = 'com.tiffexx.restaurant';
 
 final String baseUrl = 'https://admin.tiffexx.com/seller/app/v1/api/';
 // final String baseUrl = 'https://developmentalphawizz.com/eatoz/seller/app/v1/api/';

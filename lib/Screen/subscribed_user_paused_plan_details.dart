@@ -15,7 +15,9 @@ class SubscribedUserPausedPlanDetails extends StatelessWidget {
   final SubsUsersData data;
   String getStatus(DateTime dateTime) {
     int index = data.orders.indexWhere(
-            (ele) => isSameDate(dateTime, DateTime.parse(ele.date.toString())));
+            (ele) {
+              return  isSameDate(dateTime, DateTime.parse(ele.date.toString()));
+            });
     print("Index: $index");
     if (index != -1) {
       return data.orders[index].status.toString();
@@ -331,7 +333,21 @@ class SubscribedUserPausedPlanDetails extends StatelessWidget {
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ],
-                          )
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 12,
+                                width: 12,
+                                color: Colors.cyanAccent,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'Low Balance',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                       Column(
@@ -440,6 +456,55 @@ class SubscribedUserPausedPlanDetails extends StatelessWidget {
                           );
                         }
                       },
+                      todayBuilder: (context, date, _) {
+                        switch (getStatus(date)) {
+                          case '1':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.orange,
+                                title: 'Pending');
+                          case '2':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.grey,
+                                title: 'In Progress');
+                          case '3':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.blue,
+                                title: 'Picked Up');
+                          case '4':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.purpleAccent,
+                                title: 'On The Way');
+                          case '5':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.green,
+                                title: 'Delivered');
+                          case '6':
+                            return OrderStatus(
+                                date: date, color: Colors.red, title: 'Leave');
+                          case '7':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.black,
+                                title: 'Cancel By User');
+                          case '8':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.pinkAccent,
+                                title: 'Pause');
+                          case '9':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.cyanAccent,
+                                title: 'Low Balance');
+                          default:
+                            return null;
+                        }
+                      },
                       defaultBuilder: (context, date, _) {
                         switch (getStatus(date)) {
                           case '1':
@@ -480,6 +545,11 @@ class SubscribedUserPausedPlanDetails extends StatelessWidget {
                                 date: date,
                                 color: Colors.pinkAccent,
                                 title: 'Pause');
+                          case '9':
+                            return OrderStatus(
+                                date: date,
+                                color: Colors.cyanAccent,
+                                title: 'Low Balance');
                           default:
                             return null;
                         }

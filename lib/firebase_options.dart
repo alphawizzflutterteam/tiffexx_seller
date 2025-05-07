@@ -63,6 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '969883617249',
     projectId: 'tiffexx-9da1c',
     storageBucket: 'tiffexx-9da1c.appspot.com',
-    iosBundleId: 'com.tiffexx.seller',
+    iosBundleId: 'com.tiffexx.restaurant',
   );
 }

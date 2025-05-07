@@ -113,7 +113,10 @@ class SubsDetailScreen extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       Divider(),
-                      SizedBox(
+                      data.deliveryTimeSlot.length==0 ?         Text(
+                     'No Time Slot Available',
+                        style: TextStyle(fontSize: 14),
+                      ) :   SizedBox(
                         width: double.maxFinite,
                         child: ListView.builder(
                           shrinkWrap: true,
@@ -174,7 +177,7 @@ class SubsDetailScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
-                                width: 80,
+                                width: 70,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(7),
                                   image: DecorationImage(
