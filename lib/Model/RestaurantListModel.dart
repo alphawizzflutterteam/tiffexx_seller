@@ -94,7 +94,7 @@ class Rows {
     finalTotal = double.parse(json['final_total'].toString());
     totalMarchant = json['total_marchant'];
     commission = json['commission'];
-    tds = json['tds'];
+    tds = json['tds'].toString();
     // applicable = double.parse(json['applicable']);
     adminTotalEarning = json['admin_total_earning'];
     etozFee = json['etoz_fee'];

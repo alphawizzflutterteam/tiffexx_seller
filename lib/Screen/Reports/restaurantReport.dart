@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
 import 'package:tiffexx_seller/Helper/Session.dart';
 import 'package:tiffexx_seller/Helper/String.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,8 @@ class _RestaurantReportState extends State<RestaurantReport> {
                     physics: AlwaysScrollableScrollPhysics(),
                     itemCount: restaurantListModell!.rows!.length,
                     itemBuilder: (c, i) {
+                      DateTime parsedDate = DateFormat('dd-MM-yyyy HH:mm:ss').parse(restaurantListModell!.rows![i].orderDate!);
+
                       return Card(
                         elevation: 1,
                         shape: RoundedRectangleBorder(
@@ -112,15 +115,15 @@ class _RestaurantReportState extends State<RestaurantReport> {
                                         TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                   Text(
-                                      "${restaurantListModell!.rows![i].orderDate}",
+                                      "${DateFormat('dd MMM, yyyy hh:mma').format(parsedDate)}",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600)),
                                 ],
                               ),
-                              SizedBox(
+                              /*SizedBox(
                                 height: 5,
                               ),
-                              /*Row(
+                              Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -179,7 +182,7 @@ class _RestaurantReportState extends State<RestaurantReport> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Total",
+                                    "Order Amount",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w600),
                                   ),
@@ -189,7 +192,7 @@ class _RestaurantReportState extends State<RestaurantReport> {
                                           fontWeight: FontWeight.w600)),
                                 ],
                               ),
-                              SizedBox(
+                              /*SizedBox(
                                 height: 5,
                               ),
                               Row(
@@ -256,7 +259,7 @@ class _RestaurantReportState extends State<RestaurantReport> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600)),
                                 ],
-                              ),
+                              ),*/
                               SizedBox(
                                 height: 5,
                               ),
@@ -265,7 +268,7 @@ class _RestaurantReportState extends State<RestaurantReport> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Total Gst",
+                                    "Food GST (5%)",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w600),
                                   ),
@@ -283,12 +286,12 @@ class _RestaurantReportState extends State<RestaurantReport> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Final Total",
+                                    "Customer Paid Amount",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                   Text(
-                                      "\u{20B9}${double.parse(restaurantListModell!.rows![i].finalTotal.toString()).toStringAsFixed(2)}",
+                                      "\u{20B9}${((restaurantListModell!.rows![i].finalTotal ?? 0)+ (restaurantListModell!.rows![i].totalGst ?? 0)).toStringAsFixed(2)}",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600)),
                                 ],
@@ -301,7 +304,7 @@ class _RestaurantReportState extends State<RestaurantReport> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Commission",
+                                    "Tiffexx Fee",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w600),
                                   ),
@@ -319,7 +322,7 @@ class _RestaurantReportState extends State<RestaurantReport> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Eatoz Fee",
+                                    "Tax (18%)",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w600),
                                   ),
@@ -332,7 +335,7 @@ class _RestaurantReportState extends State<RestaurantReport> {
                               SizedBox(
                                 height: 5,
                               ),
-                              Row(
+                              /*Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -349,7 +352,7 @@ class _RestaurantReportState extends State<RestaurantReport> {
                               ),
                               SizedBox(
                                 height: 5,
-                              ),
+                              ),*/
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

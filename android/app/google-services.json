@@ -2,12 +2,31 @@
   "project_info": {
     "project_number": "969883617249",
     "project_id": "tiffexx-9da1c",
-    "storage_bucket": "tiffexx-9da1c.appspot.com"
+    "storage_bucket": "tiffexx-9da1c.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:969883617249:android:941bfdc75125dda9fc74a0",
+        "mobilesdk_app_id": "1:969883617249:android:7e29c079d781c207fc74a0",
+        "android_client_info": {
+          "package_name": "com.tiffexx.delivery"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYz1WxkS2T3yliGC3F_8BpC2v-uvV5bLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969883617249:android:1a1b628903f8536bfc74a0",
         "android_client_info": {
           "package_name": "com.tiffexx.restaurant"
         }
@@ -15,7 +34,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBYxP3Zo9I_rVSwo4rCoCBpB5bD_RYAWMY"
+          "current_key": "AIzaSyAYz1WxkS2T3yliGC3F_8BpC2v-uvV5bLY"
         }
       ],
       "services": {
@@ -34,7 +53,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBYxP3Zo9I_rVSwo4rCoCBpB5bD_RYAWMY"
+          "current_key": "AIzaSyAYz1WxkS2T3yliGC3F_8BpC2v-uvV5bLY"
         }
       ],
       "services": {
