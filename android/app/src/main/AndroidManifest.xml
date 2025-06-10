@@ -13,7 +13,7 @@
 
     <application
         android:icon="@mipmap/ic_launcher"
-        android:label="Tiffexx Restaurant"
+        android:label="Tiffexx Tiffin Partners"
         android:usesCleartextTraffic="true">
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD2sg48wUkfFoOc7B5NK9Udv1U0LrFasus" /> <!-- orignial map key   AIzaSyD2sg48wUkfFoOc7B5NK9Udv1U0LrFasus    ,  sawan sir   AIzaSyCg51U44a8t9L4UKa0vof-8IsqoboGP_JM-->
         <!--swwan sir second map key AIzaSyD2sg48wUkfFoOc7B5NK9Udv1U0LrFasus-->

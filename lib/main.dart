@@ -83,7 +83,7 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider(
       create: (context) => SubsProvider(),
       child:  MaterialApp(
-        title: 'Tiffexx Restaurant',
+        title: 'Tiffexx Tiffin Partners',
         builder: (context, child) {
           return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: Platform.isAndroid? 1 : 1.1), child: child!);
         },
